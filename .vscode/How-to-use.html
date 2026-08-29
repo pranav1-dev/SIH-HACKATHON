@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works — CaseTaker</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #1f2937;
+            background: #f9fafb;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        header h1 {
+            font-size: 20px;
+            color: #2563eb;
+        }
+
+        header nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        header nav a:hover {
+            color: #2563eb;
+        }
+
+        .page-head {
+            text-align: center;
+            padding: 70px 20px 50px;
+        }
+
+        .page-head h2 {
+            font-size: 36px;
+            color: #111827;
+            margin-bottom: 15px;
+        }
+
+        .page-head p {
+            font-size: 16px;
+            color: #4b5563;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .steps {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .step {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 25px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background: #2563eb;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .step-text h3 {
+            font-size: 17px;
+            color: #111827;
+            margin-bottom: 6px;
+        }
+
+        .step-text p {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            color: #9ca3af;
+            border-top: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>CaseTaker</h1>
+        <nav>
+            <a href="patient-form.html">Home</a>
+            
+        </nav>
+    </header>
+
+    <section class="page-head">
+        <h2>How It Works</h2>
+        <p>The simplest way to walk someone through what the system does.</p>
+    </section>
+
+    <div class="steps">
+
+        <div class="step">
+            <span class="step-number">1</span>
+            <div class="step-text">
+                <h3>Patient fills the intake form</h3>
+                <p>Before the consultation, the patient answers a short, guided set of
+                    questions about their symptoms and history — on their phone or a
+                    kiosk in the waiting area.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-number">2</span>
+            <div class="step-text">
+                <h3>The system organizes it</h3>
+                <p>Answers are sorted into the sections a doctor actually needs, and any
+                    red flag symptoms are automatically flagged for attention.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-number">3</span>
+            <div class="step-text">
+                <h3>Doctor sees a ready summary</h3>
+                <p>Instead of a blank form, the doctor opens a clean, structured summary
+                    the moment the patient sits down — no re-asking what's already been said.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-number">4</span>
+            <div class="step-text">
+                <h3>The record stays with the patient</h3>
+                <p>Next visit, at any department, the same history is already there —
+                    searchable, and ready to build on instead of starting over.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Built by [SIH Hackathon Section A] for [SIH]</p>
+    </footer>
+
+</body>
+
+</html>

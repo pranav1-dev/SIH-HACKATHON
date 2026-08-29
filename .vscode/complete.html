@@ -261,6 +261,10 @@
 </div>
 
 <script>
+     document.getElementById('patientForm').addEventListener('submit', function(e) {
+     e.preventDefault();
+     window.location.href = 'submission-page.html'; // or whatever you name page 2
+   });
   const sections = document.querySelectorAll('.section');
   const totalSteps = sections.length;
   let current = 0;

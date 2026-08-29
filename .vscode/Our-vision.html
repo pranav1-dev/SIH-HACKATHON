@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Vision — CaseTaker</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #1f2937;
+            background: #f9fafb;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        header h1 {
+            font-size: 20px;
+            color: #2563eb;
+        }
+
+        header nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        header nav a:hover {
+            color: #2563eb;
+        }
+
+        .page-head {
+            text-align: center;
+            padding: 70px 20px 50px;
+        }
+
+        .page-head h2 {
+            font-size: 36px;
+            color: #111827;
+            margin-bottom: 15px;
+        }
+
+        .page-head p {
+            font-size: 16px;
+            color: #4b5563;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .content {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+
+        .block {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .block h3 {
+            font-size: 18px;
+            color: #111827;
+            margin-bottom: 10px;
+        }
+
+        .block p {
+            font-size: 15px;
+            color: #6b7280;
+        }
+
+        .quote-block {
+            background: #2563eb;
+            color: #fff;
+            border-radius: 10px;
+            padding: 35px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .stat {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .stat .figure {
+            font-size: 26px;
+            font-weight: 700;
+            color: #2563eb;
+            display: block;
+        }
+
+        .stat .label {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 6px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px 14px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        th {
+            color: #6b7280;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        td:first-child {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        td:nth-child(3) {
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            color: #9ca3af;
+            border-top: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>CaseTaker</h1>
+        <nav>
+            <a href="patient-form.html">Home</a>
+            
+        </nav>
+    </header>
+
+    <section class="page-head">
+        <h2>Our Vision</h2>
+        <p>Our vision is to create a seamless, patient-centric digital intake experience
+            that helps healthcare professionals access accurate, organized patient
+            information before consultation — reducing paperwork, saving time, and
+            enabling better-informed care.</p>
+    </section>
+
+    <div class="content">
+
+        <div class="block">
+            <h3>Every visit starts from zero.</h3>
+            <p>Patients repeat their history at every clinic. Doctors spend the first
+                several minutes of a short OPD slot re-gathering information that was
+                already shared, somewhere, before — on paper, in a different department,
+                or in a conversation no one wrote down.</p>
+        </div>
+
+        <div class="quote-block">
+            A case history that follows the patient — structured once, useful everywhere.
+        </div>
+
+        <div class="block">
+            <h3>Why it matters, at scale.</h3>
+            <div class="stats">
+                <div class="stat">
+                    <span class="figure">-%</span>
+                    <span class="label">OPD time saved</span>
+                </div>
+                <div class="stat">
+                    <span class="figure">- min</span>
+                    <span class="label">Consult time recovered</span>
+                </div>
+                <div class="stat">
+                    <span class="figure">-%</span>
+                    <span class="label">Records searchable</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="block">
+            <h3>Not just another form.</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>A generic form</th>
+                        <th>Our system</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Structure</td>
+                        <td>One long list</td>
+                        <td>Guided, sectioned intake</td>
+                    </tr>
+                    <tr>
+                        <td>Medical logic</td>
+                        <td>None</td>
+                        <td>Built into the flow</td>
+                    </tr>
+                    <tr>
+                        <td>Red flag symptoms</td>
+                        <td>Easy to miss</td>
+                        <td>Surfaced to the doctor</td>
+                    </tr>
+                    <tr>
+                        <td>Output</td>
+                        <td>Raw answers</td>
+                        <td>Doctor-ready summary</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Built by [SIH Hackathon Section A] for [SIH]</p>
+    </footer>
+
+</body>
+
+</html>

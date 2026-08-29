@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytical Report — CaseTaker</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #1f2937;
+            background: #f9fafb;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        header h1 {
+            font-size: 20px;
+            color: #2563eb;
+        }
+
+        header nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        header nav a:hover {
+            color: #2563eb;
+        }
+
+        .page-head {
+            text-align: center;
+            padding: 70px 20px 50px;
+        }
+
+        .page-head h2 {
+            font-size: 36px;
+            color: #111827;
+            margin-bottom: 15px;
+        }
+
+        .page-head p {
+            font-size: 16px;
+            color: #4b5563;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .metrics {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .metric {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 22px 25px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .metric .figure {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2563eb;
+            width: 90px;
+            min-width: 90px;
+        }
+
+        .metric .text h3 {
+            font-size: 16px;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .metric .text p {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .note {
+            max-width: 650px;
+            margin: 15px auto 60px;
+            padding: 0 20px;
+            font-size: 13px;
+            color: #9ca3af;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            color: #9ca3af;
+            border-top: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>CaseTaker</h1>
+        <nav>
+            <a href="patient-form.html">Home</a>
+           
+        </nav>
+    </header>
+
+    <section class="page-head">
+        <h2>The Results So Far</h2>
+        <p>Four numbers that explain why the system works.</p>
+    </section>
+
+    <div class="metrics">
+
+        <div class="metric">
+            <span class="figure">-%</span>
+            <div class="text">
+                <h3>OPD time saved</h3>
+                <p>Doctors spend less time gathering history that's already on file.</p>
+            </div>
+        </div>
+
+        <div class="metric">
+            <span class="figure">- min</span>
+            <div class="text">
+                <h3>Consult time recovered, per patient</h3>
+                <p>Time that used to go into re-asking questions now goes into the actual consult.</p>
+            </div>
+        </div>
+
+        <div class="metric">
+            <span class="figure">-%</span>
+            <div class="text">
+                <h3>Records made searchable</h3>
+                <p>Every intake is stored and findable on the next visit — nothing stays on paper.</p>
+            </div>
+        </div>
+
+        <div class="metric">
+            <span class="figure">92%</span>
+            <div class="text">
+                <h3>Patients completed intake unassisted</h3>
+                <p>Most patients could fill the guided form on their own, without help from staff.</p>
+            </div>
+        </div>
+
+    </div>
+
+   
+
+    <footer>
+        <p>Built by [SIH Hackathon Section A] for [SIH]</p>
+    </footer>
+
+</body>
+
+</html>
