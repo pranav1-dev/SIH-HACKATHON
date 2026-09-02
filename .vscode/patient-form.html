@@ -12,10 +12,19 @@
             padding: 0;
         }
 
+        :root {
+            --bg: #f9fafb;
+            --card-line: #e5e7eb;
+            --accent: #93c5fd;
+            --accent-dark: #2563eb;
+            --muted: #6b7280;
+            --serif: Georgia, 'Times New Roman', serif;
+        }
+
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             color: #1f2937;
-            background: #f9fafb;
+            background: var(--bg);
         }
 
         header {
@@ -40,40 +49,45 @@
         }
 
         .hero {
+            position: relative;
+            min-height: 400px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             text-align: center;
             padding: 80px 20px;
-            background-image: url(img1.jpg);
+            overflow: hidden;
             color: #fbfcfe;
-            
-        
-            
         }
-.hero {
-  position: relative;
-  min-height: 400px;
-  background-image: url('img1.jpg');
-  background-size: cover;     
-  background-position: center;  
 
-  background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(17, 24, 39, 0.55), rgba(17, 24, 39, 0.55)), url('img1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            animation: hero-zoom 18s ease-in-out infinite alternate;
+            z-index: 0;
+        }
 
-
-
-
-
-
+        .hero h2,
+        .hero p,
+        .hero .btn-primary {
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(18px);
+            animation: hero-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
 
         .hero h2 {
             font-size: 36px;
             margin-bottom: 15px;
             color: white;
+            animation-delay: 0.1s;
         }
 
         .hero p {
@@ -81,6 +95,28 @@
             color: whitesmoke;
             max-width: 500px;
             margin-bottom: 30px;
+            animation-delay: 0.3s;
+        }
+
+        .hero .btn-primary {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes hero-rise {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes hero-zoom {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.12);
+            }
         }
 
         .btn-primary {
@@ -92,10 +128,17 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 15px;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background 0.2s ease;
         }
 
         .btn-primary:hover {
             background: #1d4ed8;
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.28);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px) scale(1.01);
         }
 
         .features {
@@ -116,10 +159,39 @@
             padding: 25px;
             width: 250px;
             text-align: center;
-            
-     
-    }
+            box-shadow: 0 4px 6px rgba(40, 40, 40, 0.1);
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.25s ease;
+        }
 
+        .features.in-view .feature-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .features.in-view .feature-card-1 {
+            transition-delay: 0s;
+        }
+
+        .features.in-view .feature-card-2 {
+            transition-delay: 0.12s;
+        }
+
+        .features.in-view .feature-card-3 {
+            transition-delay: 0.24s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 24px rgba(37, 99, 235, 0.14);
+        }
+
+        .features.in-view .feature-card:hover {
+            transform: translateY(-6px);
+        }
 
         .feature-card h3 {
             font-size: 17px;
@@ -140,30 +212,233 @@
             border-top: 1px solid #e5e7eb;
         }
 
-        /* .feature-card-1 {
-            position: relative;
-            left: 40px;
-            top: -60px;
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .feature-card-3 {
-            position: relative;
-            right: 40px;
-            top: -60px;
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        
-.feature-card-2 {
+        .how-it-works {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .kicker {
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-dark);
+            margin-bottom: 8px;
+        }
+
+        .section-heading h3 {
+            font-family: var(--serif);
+            font-size: 26px;
+            margin-bottom: 10px;
+            color: #111827;
+        }
+
+        .section-heading p {
+            font-size: 14px;
+            color: var(--muted);
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 32px;
             position: relative;
-            
-            
-        } */
+        }
 
+        .steps::before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 60px;
+            right: 60px;
+            height: 1px;
+            background: var(--card-line);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
+        }
 
+        .how-it-works.in-view .steps::before {
+            transform: scaleX(1);
+        }
 
+        .step {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+            position: relative;
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
 
+        .how-it-works.in-view .step {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-        
+        .how-it-works.in-view .step:nth-child(1) {
+            transition-delay: 0.15s;
+        }
+
+        .how-it-works.in-view .step:nth-child(2) {
+            transition-delay: 0.35s;
+        }
+
+        .how-it-works.in-view .step:nth-child(3) {
+            transition-delay: 0.55s;
+        }
+
+        .how-it-works.in-view .step:nth-child(4) {
+            transition-delay: 0.75s;
+        }
+
+        .how-it-works.in-view .step:nth-child(5) {
+            transition-delay: 0.95s;
+        }
+
+        .step-num {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg);
+            border: 1px solid var(--accent);
+            color: var(--accent-dark);
+            font-weight: 600;
+            font-family: var(--serif);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+                background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+        }
+
+        .how-it-works.in-view .step:nth-child(1) .step-num {
+            transition-delay: 0.25s;
+        }
+
+        .how-it-works.in-view .step:nth-child(2) .step-num {
+            transition-delay: 0.45s;
+        }
+
+        .how-it-works.in-view .step:nth-child(3) .step-num {
+            transition-delay: 0.65s;
+        }
+
+        .how-it-works.in-view .step:nth-child(4) .step-num {
+            transition-delay: 0.85s;
+        }
+
+        .how-it-works.in-view .step:nth-child(5) .step-num {
+            transition-delay: 1.05s;
+        }
+
+        .step:hover .step-num {
+            transform: scale(1.1);
+            background: var(--accent-dark);
+            border-color: var(--accent-dark);
+            color: #fff;
+        }
+
+        .step h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .step p {
+            font-size: 13px;
+            color: var(--muted);
+            max-width: 200px;
+            margin: 0 auto;
+        }
+
+        .cta-band {
+            background: var(--accent-dark);
+            color: #fff;
+            text-align: center;
+            padding: 64px 24px;
+        }
+
+        .cta-band h3 {
+            font-family: var(--serif);
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .cta-band p {
+            color: #D7E4DF;
+            font-size: 15px;
+            margin-bottom: 26px;
+        }
+
+        .cta-band .btn-primary {
+            background: #fff;
+            color: var(--accent-dark);
+        }
+
+        .cta-band .btn-primary:hover {
+            background: #eef2ff;
+        }
+
+        @media (max-width: 700px) {
+            .steps {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .steps::before {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            .hero h2,
+            .hero p,
+            .hero .btn-primary,
+            .feature-card,
+            .step,
+            .reveal {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            .steps::before {
+                transform: scaleX(1) !important;
+            }
+        }
     </style>
 </head>
 
@@ -201,10 +476,66 @@
         </div>
     </section>
 
+    <section class="how-it-works reveal">
+        <div class="section-heading">
+            <div class="kicker">The process</div>
+            <h3>From walk-in to record in five steps</h3>
+            <p>CaseTaker walks each patient through a short guided form before they ever see the doctor.</p>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <h4>Demographics</h4>
+                <p>Name, age, and basic details</p>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <h4>Complaint</h4>
+                <p>Current complaint, in the patient's words</p>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <h4>History</h4>
+                <p>Allergies, medications, past conditions</p>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <h4>Past Records</h4>
+                <p>Prior visits, reports, and test results</p>
+            </div>
+            <div class="step">
+                <div class="step-num">5</div>
+                <h4>Review</h4>
+                <p>Confirm and hand off to the doctor</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-band reveal">
+        <h3>Ready to try it?</h3>
+        <p>No login needed for the demo — jump straight into a sample intake.</p>
+        <a href="complete.html" class="btn-primary">Start intake</a>
+    </section>
+
     <footer>
-        <p>Built by [SIH Hackathon Section A] for [SIH]]</p>
+        <p>Built by [SIH Hackathon Section A] for [SIH]</p>
     </footer>
+
+    <script>
+        var revealObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.25 });
+
+        document.querySelectorAll('.features, .how-it-works, .reveal').forEach(function (el) {
+            revealObserver.observe(el);
+        });
+    </script>
 
 </body>
 
-</html>
+</html>>
