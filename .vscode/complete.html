@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Patient Intake Form - CaseTaker</title>
+<title>Patient Intake Form</title>
 
 <style>
-  * {
-    box-sizing: border-box;
-  }
-
+  * { box-sizing: border-box; }
   body {
     font-family: 'Segoe UI', Arial, sans-serif;
     background: #f4f6f8;
@@ -18,7 +14,6 @@
     padding: 20px;
     color: #1f2937;
   }
-
   .container {
     max-width: 600px;
     margin: 0 auto;
@@ -27,12 +22,10 @@
     box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     padding: 30px;
   }
-
   h1 {
     font-size: 22px;
     margin-bottom: 4px;
   }
-
   p.subtitle {
     color: #6b7280;
     margin-top: 0;
@@ -40,24 +33,22 @@
     font-size: 14px;
   }
 
-  /* =========================
-     Progress bar
-  ========================= */
-
+  /* Progress bar */
   .progress-wrap {
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
+    flex-wrap: wrap;
+    row-gap: 10px;
   }
-
   .progress-step {
     flex: 1;
     text-align: center;
-    font-size: 12px;
+    font-size: 11px;
     color: #9ca3af;
     position: relative;
+    min-width: 50px;
   }
-
   .progress-step .dot {
     width: 26px;
     height: 26px;
@@ -72,44 +63,19 @@
     font-size: 13px;
     transition: 0.3s;
   }
-
   .progress-step.active .dot {
     background: #2563eb;
     color: #fff;
   }
-
   .progress-step.done .dot {
     background: #16a34a;
     color: #fff;
   }
+  .progress-step.active { color: #2563eb; font-weight: 600; }
 
-  .progress-step.active {
-    color: #2563eb;
-    font-weight: 600;
-  }
-
-  /* =========================
-     Sections
-  ========================= */
-
-  .section {
-    display: none;
-  }
-
-  .section.active {
-    display: block;
-    animation: fadeIn 0.25s ease-in;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
-  }
+  .section { display: none; }
+  .section.active { display: block; animation: fadeIn 0.25s ease-in; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
   .section h2 {
     font-size: 17px;
@@ -126,10 +92,7 @@
     margin-bottom: 5px;
     margin-top: 14px;
   }
-
-  input,
-  select,
-  textarea {
+  input, select, textarea {
     width: 100%;
     padding: 9px 10px;
     border: 1px solid #d1d5db;
@@ -137,25 +100,17 @@
     font-size: 14px;
     font-family: inherit;
   }
-
-  input:focus,
-  select:focus,
-  textarea:focus {
+  input:focus, select:focus, textarea:focus {
     outline: none;
     border-color: #2563eb;
     box-shadow: 0 0 0 2px rgba(37,99,235,0.15);
   }
-
-  /* =========================
-     Navigation buttons
-  ========================= */
 
   .nav-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 25px;
   }
-
   button {
     padding: 10px 22px;
     border: none;
@@ -164,39 +119,19 @@
     font-weight: 600;
     cursor: pointer;
   }
-
-  .btn-next,
-  .btn-submit {
+  .btn-next, .btn-submit {
     background: #2563eb;
     color: #fff;
     margin-left: auto;
   }
-
-  .btn-next:hover,
-  .btn-submit:hover {
-    background: #1d4ed8;
-  }
-
+  .btn-next:hover, .btn-submit:hover { background: #1d4ed8; }
   .btn-back {
     background: #e5e7eb;
     color: #374151;
   }
-
-  .btn-back:hover {
-    background: #d1d5db;
-  }
-
-  .btn-submit {
-    background: #16a34a;
-  }
-
-  .btn-submit:hover {
-    background: #15803d;
-  }
-
-  /* =========================
-     Checkbox
-  ========================= */
+  .btn-back:hover { background: #d1d5db; }
+  .btn-submit { background: #16a34a; }
+  .btn-submit:hover { background: #15803d; }
 
   .checkbox-group label {
     font-weight: 400;
@@ -205,15 +140,9 @@
     gap: 8px;
     margin-top: 8px;
   }
+  .checkbox-group input { width: auto; }
 
-  .checkbox-group input {
-    width: auto;
-  }
-
-  /* =========================
-     Adaptive follow-up box
-  ========================= */
-
+  /* Adaptive follow-up box */
   #followUpSection {
     display: none;
     border-left: 3px solid #2563eb;
@@ -222,24 +151,20 @@
     background: #eff6ff;
     border-radius: 6px;
   }
-
   #followUpSection h3 {
     font-size: 14px;
     color: #2563eb;
     margin-bottom: 10px;
   }
-
   .severity-slider {
     display: flex;
     align-items: center;
     gap: 12px;
   }
-
   .severity-slider input[type="range"] {
     flex: 1;
     accent-color: #2563eb;
   }
-
   .severity-value {
     font-weight: 700;
     color: #2563eb;
@@ -247,102 +172,7 @@
     text-align: center;
   }
 
-  /* =========================
-     RED ALERT SYSTEM
-  ========================= */
-
-  .severity-alert {
-    display: none;
-    margin-top: 18px;
-    border-radius: 8px;
-    padding: 15px 16px;
-    font-size: 14px;
-    line-height: 1.5;
-    position: relative;
-  }
-
-  .severity-alert.simple-alert {
-    display: block;
-    background: #fef2f2;
-    border: 2px solid #ef4444;
-    color: #991b1b;
-  }
-
-  .severity-alert.critical-alert {
-    display: block;
-    background: #dc2626;
-    border: 2px solid #991b1b;
-    color: #fff;
-    box-shadow: 0 0 0 4px rgba(239,68,68,0.15);
-    animation: criticalPulse 1.2s infinite;
-  }
-
-  .severity-alert .alert-title {
-    font-size: 15px;
-    font-weight: 800;
-    margin-bottom: 4px;
-  }
-
-  .severity-alert .alert-text {
-    font-size: 13px;
-  }
-
-  @keyframes criticalPulse {
-    0% {
-      box-shadow: 0 0 0 0 rgba(239,68,68,0.45);
-    }
-
-    70% {
-      box-shadow: 0 0 0 8px rgba(239,68,68,0);
-    }
-
-    100% {
-      box-shadow: 0 0 0 0 rgba(239,68,68,0);
-    }
-  }
-
-  /* =========================
-     Preview / Review Alert
-  ========================= */
-
-  #reviewAlert {
-    display: none;
-    margin: 18px 0;
-    border-radius: 8px;
-    padding: 16px;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  #reviewAlert.simple-alert {
-    display: block;
-    background: #fef2f2;
-    border: 2px solid #ef4444;
-    color: #991b1b;
-  }
-
-  #reviewAlert.critical-alert {
-    display: block;
-    background: #dc2626;
-    border: 2px solid #991b1b;
-    color: #fff;
-    animation: criticalPulse 1.2s infinite;
-  }
-
-  #reviewAlert .alert-title {
-    font-size: 16px;
-    font-weight: 800;
-    margin-bottom: 5px;
-  }
-
-  #reviewAlert .alert-text {
-    font-size: 13px;
-  }
-
-  /* =========================
-     Upload box
-  ========================= */
-
+  /* Upload box */
   .upload-box {
     border: 2px dashed #d1d5db;
     border-radius: 8px;
@@ -353,16 +183,11 @@
     font-size: 14px;
     margin-top: 14px;
   }
-
   .upload-box:hover {
     border-color: #2563eb;
     color: #2563eb;
   }
-
-  #fileList {
-    margin-top: 12px;
-  }
-
+  #fileList { margin-top: 12px; }
   .file-item {
     display: flex;
     justify-content: space-between;
@@ -373,7 +198,6 @@
     font-size: 13px;
     margin-bottom: 6px;
   }
-
   .file-item button {
     background: none;
     border: none;
@@ -383,139 +207,173 @@
     padding: 0;
   }
 
-  /* =========================
-     Review
-  ========================= */
-
-  #reviewSummary {
-    font-size: 14px;
-    line-height: 1.7;
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 15px;
-  }
-
-  .review-item {
-    padding: 5px 0;
-    border-bottom: 1px solid #e5e7eb;
-  }
-
-  .review-item:last-child {
-    border-bottom: none;
-  }
-
-  .review-label {
-    font-weight: 700;
-    color: #374151;
-  }
-
-  /* =========================
-     Success
-  ========================= */
-
   #successMsg {
     display: none;
     text-align: center;
     padding: 30px 0;
   }
+  #successMsg h2 { color: #16a34a; }
 
-  #successMsg h2 {
-    color: #16a34a;
+  /* Red flag alert banners */
+  .red-flag-alert {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .red-flag-alert.level-red {
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-left: 4px solid #dc2626;
+    color: #991b1b;
+  }
+  .red-flag-alert.level-critical {
+    background: #7f1d1d;
+    border: 1px solid #7f1d1d;
+    border-left: 4px solid #450a0a;
+    color: #fff;
+    animation: pulseAlert 1.4s ease-in-out infinite;
+  }
+  @keyframes pulseAlert {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(127,29,29,0.5); }
+    50% { box-shadow: 0 0 0 6px rgba(127,29,29,0); }
   }
 
-  /* =========================
-     Mobile
-  ========================= */
+  /* Language selector */
+  .lang-bar { text-align: right; margin-bottom: 6px; }
+  .lang-bar select { width: auto; padding: 5px 8px; font-size: 13px; }
 
-  @media (max-width: 600px) {
-    body {
-      padding: 10px;
-    }
+  /* Voice input */
+  .field-row { display: flex; gap: 8px; align-items: flex-start; }
+  .field-row > *:first-child { flex: 1; }
+  .mic-btn {
+    margin-top: 14px;
+    width: 38px; height: 38px; padding: 0;
+    border-radius: 6px;
+    background: #eef2ff;
+    color: #2563eb;
+    font-size: 16px;
+  }
+  .mic-btn.listening { background: #dc2626; color: #fff; animation: pulseAlert 1s infinite; }
 
-    .container {
-      padding: 20px;
-    }
-
-    .progress-step {
-      font-size: 10px;
-    }
-
-    .progress-step .dot {
-      width: 24px;
-      height: 24px;
-      font-size: 12px;
-    }
+  /* Ayush History Mode */
+  .ayush-toggle-box {
+    margin-top: 18px;
+    padding: 12px 14px;
+    background: #fff7ed;
+    border: 1px solid #fdba74;
+    border-radius: 8px;
+  }
+  .ayush-toggle-box label.ayush-toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #9a3412;
+    margin: 0;
+  }
+  .ayush-toggle-box input[type="checkbox"] { width: auto; }
+  .ayush-toggle-box p {
+    font-size: 12px;
+    color: #b45309;
+    margin: 6px 0 0 30px;
+  }
+  .ayush-block {
+    border: 1px solid #fed7aa;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-top: 16px;
+    background: #fffbeb;
+  }
+  .ayush-block h3 {
+    font-size: 14px;
+    margin: 0 0 4px 0;
+    color: #9a3412;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .ayush-block h3 .sanskrit {
+    font-size: 12px;
+    font-weight: 400;
+    color: #b45309;
+  }
+  .ayush-block p.hint {
+    font-size: 12px;
+    color: #92400e;
+    margin: 0 0 8px 0;
+  }
+  .ayush-subgrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 12px;
+  }
+  .ayush-subgrid > div { min-width: 0; }
+  .bmi-display {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #9a3412;
+  }
+  .rasa-checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    margin-top: 8px;
+  }
+  .rasa-checkbox-group label {
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 0;
+    font-size: 13px;
+  }
+  .rasa-checkbox-group input { width: auto; }
+  .ayush-section-note {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 0;
   }
 </style>
 </head>
-
 <body>
-
 <div class="container">
-
-  <h1>Patient Intake Form</h1>
-
-  <p class="subtitle">
-    Please complete each section and click Next to continue.
-  </p>
-
-  <!-- =========================
-       Progress
-  ========================= -->
+  <div class="lang-bar">
+    <select id="langSelect" onchange="setLanguage(this.value)">
+      <option value="en">English</option>
+      <option value="hi">हिंदी</option>
+    </select>
+  </div>
+  <h1 data-i18n="title">Patient Intake Form</h1>
+  <p class="subtitle" data-i18n="subtitle">Please complete each section and click Next to continue.</p>
 
   <div class="progress-wrap" id="progressWrap"></div>
 
-  <!-- =========================
-       FORM
-  ========================= -->
-
   <form id="patientForm" action="/submit" method="post">
 
-    <!-- =====================================
-         SECTION 1: DEMOGRAPHICS
-    ====================================== -->
+    <!-- Section 1: Demographics -->
+    <div class="section active" data-section="demo">
+      <h2 data-i18n="sectionDemo">1. Patient Demographics</h2>
 
-    <div class="section active" data-section="0">
+      <label for="patientName" data-i18n="fullName">Full Name</label>
+      <input type="text" id="patientName" name="patientName" required>
 
-      <h2>1. Patient Demographics</h2>
+      <label for="age" data-i18n="age">Age</label>
+      <input type="number" id="age" name="age" min="0" max="120" required onchange="suggestVaya()">
 
-      <label for="patientName">Full Name</label>
-      <input
-        type="text"
-        id="patientName"
-        name="patientName"
-        required
-      >
-
-      <label for="age">Age</label>
-      <input
-        type="number"
-        id="age"
-        name="age"
-        min="0"
-        max="120"
-        required
-      >
-
-      <label for="gender">Gender</label>
-      <select
-        id="gender"
-        name="gender"
-        required
-      >
-        <option value="">Select Gender</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
+      <label for="gender" data-i18n="gender">Gender</label>
+      <select id="gender" name="gender" required>
+        <option value="" data-i18n="selectGender">Select Gender</option>
+        <option value="male" data-i18n="male">Male</option>
+        <option value="female" data-i18n="female">Female</option>
+        <option value="other" data-i18n="other">Other</option>
       </select>
 
-      <label for="bloodGroup">Blood Group</label>
-      <select
-        id="bloodGroup"
-        name="bloodGroup"
-        required
-      >
+      <label for="bloodGroup" data-i18n="bloodGroup">Blood Group</label>
+      <select id="bloodGroup" name="bloodGroup" required>
         <option value="">Select Blood Group</option>
         <option value="A+">A+</option>
         <option value="A-">A-</option>
@@ -527,46 +385,28 @@
         <option value="O-">O-</option>
       </select>
 
-      <label for="mobileNumber">Mobile Number</label>
-      <input
-        type="tel"
-        id="mobileNumber"
-        name="mobileNumber"
-        pattern="[0-9]{10}"
-        placeholder="10-digit number"
-        required
-      >
+      <label for="mobileNumber" data-i18n="mobile">Mobile Number</label>
+      <input type="tel" id="mobileNumber" name="mobileNumber" pattern="[0-9]{10}" placeholder="10-digit number" required>
 
-      <label for="date">Date</label>
-      <input
-        type="date"
-        id="date"
-        name="date"
-        required
-      >
+      <label for="date" data-i18n="date">Date</label>
+      <input type="date" id="date" name="date" required>
 
+      <div class="ayush-toggle-box">
+        <label class="ayush-toggle-label" for="ayushModeToggle">
+          <input type="checkbox" id="ayushModeToggle" onchange="toggleAyushMode(this.checked)">
+          <span data-i18n="ayushToggleLabel">🕉️ Enable Ayush History Mode (Ayurveda OPD)</span>
+        </label>
+        <p data-i18n="ayushToggleHint">Adds an extended Dashvidha Pariksha (10-fold examination) and Ahara-Vihara assessment for Ayurvedic case-taking.</p>
+      </div>
     </div>
 
+    <!-- Section 2: Chief Complaint / HPI -->
+    <div class="section" data-section="complaint">
+      <h2 data-i18n="sectionComplaint">2. Chief Complaint</h2>
 
-    <!-- =====================================
-         SECTION 2: CHIEF COMPLAINT
-    ====================================== -->
-
-    <div class="section" data-section="1">
-
-      <h2>2. Chief Complaint</h2>
-
-      <label for="commonProblems">
-        Primary Complaint
-      </label>
-
-      <select
-        id="commonProblems"
-        name="commonProblems"
-        required
-        onchange="renderFollowUps()"
-      >
-        <option value="">Select Problem</option>
+      <label for="commonProblems" data-i18n="primaryComplaint">Primary Complaint</label>
+      <select id="commonProblems" name="commonProblems" required onchange="renderFollowUps(); checkRedFlags();">
+        <option value="" data-i18n="selectProblem">Select Problem</option>
         <option value="Fever">Fever</option>
         <option value="Cold">Cold</option>
         <option value="Hypertension">Hypertension</option>
@@ -579,1791 +419,806 @@
         <option value="Other">Other</option>
       </select>
 
+      <label for="duration" data-i18n="duration">Duration of Symptoms</label>
+      <input type="text" id="duration" name="duration" placeholder="e.g. 3 days">
 
-      <label for="duration">
-        Duration of Symptoms
-      </label>
+      <label for="severity" data-i18n="severity">Severity (1–10)</label>
+      <input type="number" id="severity" name="severity" min="1" max="10" oninput="checkRedFlags()">
 
-      <input
-        type="text"
-        id="duration"
-        name="duration"
-        placeholder="e.g. 3 days"
-      >
-
-
-      <label for="severity">
-        Severity (1–10)
-      </label>
-
-      <input
-        type="number"
-        id="severity"
-        name="severity"
-        min="1"
-        max="10"
-        placeholder="Enter severity from 1 to 10"
-      >
-
-
-      <!-- =====================================
-           MAIN ALERT
-      ====================================== -->
-
-      <div id="severityAlert" class="severity-alert">
-
-        <div class="alert-title" id="alertTitle"></div>
-
-        <div class="alert-text" id="alertText"></div>
-
+      <label for="reportDetails" data-i18n="details">Additional Details</label>
+      <div class="field-row">
+        <textarea id="reportDetails" name="reportDetails" rows="4" placeholder="Describe symptoms, onset, what makes it better/worse..."></textarea>
+        <button type="button" class="mic-btn" onclick="startVoice('reportDetails', this)">🎤</button>
       </div>
 
+      <!-- Red flag alert banner (complaint page) -->
+      <div id="redFlagAlert" class="red-flag-alert" style="display:none;"></div>
 
-      <label for="reportDetails">
-        Additional Details
-      </label>
-
-      <textarea
-        id="reportDetails"
-        name="reportDetails"
-        rows="4"
-        placeholder="Describe symptoms, onset, what makes it better/worse..."
-      ></textarea>
-
-
-      <!-- =====================================
-           ADAPTIVE FOLLOW-UP
-      ====================================== -->
-
+      <!-- Adaptive follow-up questions render here based on complaint -->
       <div id="followUpSection">
-
-        <h3>
-          A few more details about this complaint
-        </h3>
-
+        <h3>A few more details about this complaint</h3>
         <div id="followUpFields"></div>
-
       </div>
-
     </div>
 
+    <!-- Section 3: Medical History -->
+    <div class="section" data-section="history">
+      <h2 data-i18n="sectionHistory">3. Medical History</h2>
 
-    <!-- =====================================
-         SECTION 3: MEDICAL HISTORY
-    ====================================== -->
+      <label for="pastConditions" data-i18n="pastConditions">Known Past/Existing Conditions</label>
+      <div class="field-row">
+        <textarea id="pastConditions" name="pastConditions" rows="3" placeholder="e.g. Diabetes, Asthma, TB..."></textarea>
+        <button type="button" class="mic-btn" onclick="startVoice('pastConditions', this)">🎤</button>
+      </div>
 
-    <div class="section" data-section="2">
+      <label for="surgicalHistory" data-i18n="surgicalHistory">Previous Surgeries</label>
+      <div class="field-row">
+        <textarea id="surgicalHistory" name="surgicalHistory" rows="2" placeholder="e.g. Appendectomy in 2019"></textarea>
+        <button type="button" class="mic-btn" onclick="startVoice('surgicalHistory', this)">🎤</button>
+      </div>
 
-      <h2>3. Medical History</h2>
+      <label for="medications" data-i18n="medications">Current Medications</label>
+      <div class="field-row">
+        <textarea id="medications" name="medications" rows="3" placeholder="Name + dosage if known"></textarea>
+        <button type="button" class="mic-btn" onclick="startVoice('medications', this)">🎤</button>
+      </div>
 
-      <label for="pastConditions">
-        Known Past/Existing Conditions
-      </label>
-
-      <textarea
-        id="pastConditions"
-        name="pastConditions"
-        rows="3"
-        placeholder="e.g. Diabetes, Asthma, TB..."
-      ></textarea>
-
-
-      <label for="surgicalHistory">
-        Previous Surgeries
-      </label>
-
-      <textarea
-        id="surgicalHistory"
-        name="surgicalHistory"
-        rows="2"
-        placeholder="e.g. Appendectomy in 2019"
-      ></textarea>
-
-
-      <label for="medications">
-        Current Medications
-      </label>
-
-      <textarea
-        id="medications"
-        name="medications"
-        rows="3"
-        placeholder="Name + dosage if known"
-      ></textarea>
-
-
-      <label for="allergies">
-        Known Allergies
-      </label>
-
-      <input
-        type="text"
-        id="allergies"
-        name="allergies"
-        placeholder="Drug, food, environmental"
-      >
-
+      <label for="allergies" data-i18n="allergies">Known Allergies</label>
+      <div class="field-row">
+        <input type="text" id="allergies" name="allergies" placeholder="Drug, food, environmental">
+        <button type="button" class="mic-btn" onclick="startVoice('allergies', this)">🎤</button>
+      </div>
 
       <div class="checkbox-group">
-
-        <label>
-          <input
-            type="checkbox"
-            name="smoker"
-            value="yes"
-          >
-          Smoker
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            name="alcohol"
-            value="yes"
-          >
-          Consumes Alcohol
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            name="familyHistory"
-            value="yes"
-          >
-          Family history of chronic illness
-        </label>
-
+        <label><input type="checkbox" name="smoker" value="yes"> <span data-i18n="smoker">Smoker</span></label>
+        <label><input type="checkbox" name="alcohol" value="yes"> <span data-i18n="alcohol">Consumes Alcohol</span></label>
+        <label><input type="checkbox" name="familyHistory" value="yes"> <span data-i18n="familyHistory">Family history of chronic illness</span></label>
       </div>
-
     </div>
 
+    <!-- Section 4 (conditional): Ayush History Mode - Dashvidha Pariksha + Ahara-Vihara -->
+    <div class="section" data-section="ayush" data-conditional="ayush">
+      <h2 data-i18n="sectionAyush">🕉️ Ayush History — Dashvidha Pariksha</h2>
+      <p class="ayush-section-note" data-i18n="ayushSectionNote">Ten-fold Ayurvedic clinical examination, plus diet and lifestyle (Ahara-Vihara) assessment.</p>
 
-    <!-- =====================================
-         SECTION 4: PAST RECORDS
-    ====================================== -->
-
-    <div class="section" data-section="3">
-
-      <h2>4. Past Medical Records</h2>
-
-      <p
-        style="
-          font-size:14px;
-          color:#6b7280;
-          margin-top:0;
-        "
-      >
-        Upload any prior prescriptions, lab reports,
-        or discharge summaries. We'll organize them
-        by date for the doctor.
-      </p>
-
-
-      <div
-        class="upload-box"
-        onclick="document.getElementById('recordUpload').click()"
-      >
-        Click to upload photos or PDFs of past records
+      <!-- 1. Prakriti -->
+      <div class="ayush-block">
+        <h3>1. Prakriti <span class="sanskrit">(Constitution)</span></h3>
+        <p class="hint">Baseline doshic constitution determined at birth.</p>
+        <label for="prakritiType">Dominant Prakriti</label>
+        <select id="prakritiType" name="prakritiType">
+          <option value="">-- Select --</option>
+          <option value="Vata">Vata</option>
+          <option value="Pitta">Pitta</option>
+          <option value="Kapha">Kapha</option>
+          <option value="Vata-Pitta">Vata-Pitta</option>
+          <option value="Pitta-Kapha">Pitta-Kapha</option>
+          <option value="Vata-Kapha">Vata-Kapha</option>
+          <option value="Sama (Tridoshaj)">Sama (Tridoshaj)</option>
+        </select>
+        <label for="prakritiNotes">Notes</label>
+        <div class="field-row">
+          <textarea id="prakritiNotes" name="prakritiNotes" rows="2" placeholder="Body build, skin, appetite, mental traits..."></textarea>
+          <button type="button" class="mic-btn" onclick="startVoice('prakritiNotes', this)">🎤</button>
+        </div>
       </div>
 
+      <!-- 2. Vikriti -->
+      <div class="ayush-block">
+        <h3>2. Vikriti <span class="sanskrit">(Current Imbalance)</span></h3>
+        <p class="hint">Present doshic derangement, as distinct from baseline Prakriti.</p>
+        <label for="vikritiType">Dominant Vikriti</label>
+        <select id="vikritiType" name="vikritiType">
+          <option value="">-- Select --</option>
+          <option value="Vata">Vata</option>
+          <option value="Pitta">Pitta</option>
+          <option value="Kapha">Kapha</option>
+          <option value="Vata-Pitta">Vata-Pitta</option>
+          <option value="Pitta-Kapha">Pitta-Kapha</option>
+          <option value="Vata-Kapha">Vata-Kapha</option>
+          <option value="Sannipataja (Tridoshaj)">Sannipataja (Tridoshaj)</option>
+          <option value="None apparent">None apparent</option>
+        </select>
+        <label for="vikritiNotes">Notes</label>
+        <div class="field-row">
+          <textarea id="vikritiNotes" name="vikritiNotes" rows="2" placeholder="Signs of current imbalance..."></textarea>
+          <button type="button" class="mic-btn" onclick="startVoice('vikritiNotes', this)">🎤</button>
+        </div>
+      </div>
 
-      <input
-        type="file"
-        id="recordUpload"
-        accept="image/*,.pdf"
-        multiple
-        style="display:none"
-        onchange="handleFiles(event)"
-      >
+      <!-- 3. Sara -->
+      <div class="ayush-block">
+        <h3>3. Sara <span class="sanskrit">(Tissue Excellence)</span></h3>
+        <p class="hint">Which dhatu (tissue) shows the greatest excellence/quality.</p>
+        <div class="ayush-subgrid">
+          <div>
+            <label for="saraPredominant">Predominant Dhatu Sara</label>
+            <select id="saraPredominant" name="saraPredominant">
+              <option value="">-- Select --</option>
+              <option value="Twak (Skin)">Twak (Skin)</option>
+              <option value="Rakta (Blood)">Rakta (Blood)</option>
+              <option value="Mamsa (Muscle)">Mamsa (Muscle)</option>
+              <option value="Meda (Fat)">Meda (Fat)</option>
+              <option value="Asthi (Bone)">Asthi (Bone)</option>
+              <option value="Majja (Marrow)">Majja (Marrow)</option>
+              <option value="Shukra/Artava (Reproductive)">Shukra/Artava (Reproductive)</option>
+              <option value="Sarva Sara (All tissues)">Sarva Sara (All tissues)</option>
+            </select>
+          </div>
+          <div>
+            <label for="saraGrade">Overall Grade</label>
+            <select id="saraGrade" name="saraGrade">
+              <option value="">-- Select --</option>
+              <option value="Pravara (Excellent)">Pravara (Excellent)</option>
+              <option value="Madhyama (Average)">Madhyama (Average)</option>
+              <option value="Avara (Poor)">Avara (Poor)</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
+      <!-- 4. Samhanan -->
+      <div class="ayush-block">
+        <h3>4. Samhanan <span class="sanskrit">(Body Compactness)</span></h3>
+        <p class="hint">Firmness/compactness of body build and joints.</p>
+        <label for="samhananGrade">Grade</label>
+        <select id="samhananGrade" name="samhananGrade">
+          <option value="">-- Select --</option>
+          <option value="Pravara (Well-compact)">Pravara (Well-compact)</option>
+          <option value="Madhyama (Moderate)">Madhyama (Moderate)</option>
+          <option value="Avara (Poor/Loose)">Avara (Poor/Loose)</option>
+        </select>
+      </div>
+
+      <!-- 5. Pramana -->
+      <div class="ayush-block">
+        <h3>5. Pramana <span class="sanskrit">(Body Measurement)</span></h3>
+        <p class="hint">Anthropometric proportion of the body.</p>
+        <div class="ayush-subgrid">
+          <div>
+            <label for="pramanaHeight">Height (cm)</label>
+            <input type="number" id="pramanaHeight" name="pramanaHeight" min="0" step="0.1" oninput="calcBMI()">
+          </div>
+          <div>
+            <label for="pramanaWeight">Weight (kg)</label>
+            <input type="number" id="pramanaWeight" name="pramanaWeight" min="0" step="0.1" oninput="calcBMI()">
+          </div>
+        </div>
+        <div class="bmi-display" id="bmiDisplay"></div>
+        <label for="pramanaNotes">Proportion Notes</label>
+        <textarea id="pramanaNotes" name="pramanaNotes" rows="2" placeholder="Symmetry, anjali-pramana observations..."></textarea>
+      </div>
+
+      <!-- 6. Satmya -->
+      <div class="ayush-block">
+        <h3>6. Satmya <span class="sanskrit">(Suitability)</span></h3>
+        <p class="hint">What the patient is habituated/adapted to tolerate well.</p>
+        <label for="satmyaType">Satmya Type</label>
+        <select id="satmyaType" name="satmyaType">
+          <option value="">-- Select --</option>
+          <option value="Vata-satmya">Vata-satmya</option>
+          <option value="Pitta-satmya">Pitta-satmya</option>
+          <option value="Kapha-satmya">Kapha-satmya</option>
+          <option value="Sarva-rasa-satmya (All tastes)">Sarva-rasa-satmya (All tastes)</option>
+        </select>
+        <label for="satmyaNotes">Notes</label>
+        <div class="field-row">
+          <textarea id="satmyaNotes" name="satmyaNotes" rows="2" placeholder="Foods, climate, routines the patient tolerates well..."></textarea>
+          <button type="button" class="mic-btn" onclick="startVoice('satmyaNotes', this)">🎤</button>
+        </div>
+      </div>
+
+      <!-- 7. Sattva -->
+      <div class="ayush-block">
+        <h3>7. Sattva <span class="sanskrit">(Psychic Strength)</span></h3>
+        <p class="hint">Mental resilience and psychological strength.</p>
+        <label for="sattvaGrade">Grade</label>
+        <select id="sattvaGrade" name="sattvaGrade">
+          <option value="">-- Select --</option>
+          <option value="Pravara (High)">Pravara (High)</option>
+          <option value="Madhyama (Moderate)">Madhyama (Moderate)</option>
+          <option value="Avara (Low)">Avara (Low)</option>
+        </select>
+      </div>
+
+      <!-- 8. Ahara Shakti -->
+      <div class="ayush-block">
+        <h3>8. Ahara Shakti <span class="sanskrit">(Digestive Capacity)</span></h3>
+        <p class="hint">Capacity for food intake and digestion/metabolism.</p>
+        <div class="ayush-subgrid">
+          <div>
+            <label for="abhyavaharanaShakti">Abhyavaharana Shakti (quantity tolerated)</label>
+            <select id="abhyavaharanaShakti" name="abhyavaharanaShakti">
+              <option value="">-- Select --</option>
+              <option value="Poor">Poor</option>
+              <option value="Average">Average</option>
+              <option value="Good">Good</option>
+            </select>
+          </div>
+          <div>
+            <label for="jaranaShaktiAgni">Jarana Shakti (Agni type)</label>
+            <select id="jaranaShaktiAgni" name="jaranaShaktiAgni">
+              <option value="">-- Select --</option>
+              <option value="Vishama Agni">Vishama Agni</option>
+              <option value="Tikshna Agni">Tikshna Agni</option>
+              <option value="Manda Agni">Manda Agni</option>
+              <option value="Sama Agni">Sama Agni</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Vyayama Shakti -->
+      <div class="ayush-block">
+        <h3>9. Vyayama Shakti <span class="sanskrit">(Exercise Capacity)</span></h3>
+        <p class="hint">Tolerance for physical exertion.</p>
+        <label for="vyayamaShaktiGrade">Grade</label>
+        <select id="vyayamaShaktiGrade" name="vyayamaShaktiGrade">
+          <option value="">-- Select --</option>
+          <option value="Pravara (High)">Pravara (High)</option>
+          <option value="Madhyama (Moderate)">Madhyama (Moderate)</option>
+          <option value="Avara (Low)">Avara (Low)</option>
+        </select>
+        <label for="vyayamaNotes">Notes</label>
+        <textarea id="vyayamaNotes" name="vyayamaNotes" rows="2" placeholder="Type/duration of exertion tolerated..."></textarea>
+      </div>
+
+      <!-- 10. Vaya -->
+      <div class="ayush-block">
+        <h3>10. Vaya <span class="sanskrit">(Age Classification)</span></h3>
+        <p class="hint">Ayurvedic age category — auto-suggested from age entered earlier, editable.</p>
+        <label for="vayaCategory">Vaya Category</label>
+        <select id="vayaCategory" name="vayaCategory">
+          <option value="">-- Select --</option>
+          <option value="Bala (0-16 yrs)">Bala (0-16 yrs)</option>
+          <option value="Madhya (16-60 yrs)">Madhya (16-60 yrs)</option>
+          <option value="Vriddha (60+ yrs)">Vriddha (60+ yrs)</option>
+        </select>
+      </div>
+
+      <!-- 11. Ahara-Vihara -->
+      <div class="ayush-block">
+        <h3>11. Ahara-Vihara <span class="sanskrit">(Diet & Lifestyle)</span></h3>
+        <p class="hint">Dietary habits and daily routine assessment.</p>
+
+        <label for="mealPattern">Meal Pattern</label>
+        <select id="mealPattern" name="mealPattern">
+          <option value="">-- Select --</option>
+          <option value="Regular">Regular</option>
+          <option value="Irregular">Irregular</option>
+        </select>
+
+        <label for="foodPreference">Food Preference</label>
+        <select id="foodPreference" name="foodPreference">
+          <option value="">-- Select --</option>
+          <option value="Vegetarian">Vegetarian</option>
+          <option value="Non-vegetarian">Non-vegetarian</option>
+          <option value="Mixed">Mixed</option>
+        </select>
+
+        <label>Rasa (Taste) Preference</label>
+        <div class="rasa-checkbox-group">
+          <label><input type="checkbox" name="rasaPreference" value="Madhura (Sweet)"> Madhura (Sweet)</label>
+          <label><input type="checkbox" name="rasaPreference" value="Amla (Sour)"> Amla (Sour)</label>
+          <label><input type="checkbox" name="rasaPreference" value="Lavana (Salty)"> Lavana (Salty)</label>
+          <label><input type="checkbox" name="rasaPreference" value="Katu (Pungent)"> Katu (Pungent)</label>
+          <label><input type="checkbox" name="rasaPreference" value="Tikta (Bitter)"> Tikta (Bitter)</label>
+          <label><input type="checkbox" name="rasaPreference" value="Kashaya (Astringent)"> Kashaya (Astringent)</label>
+        </div>
+
+        <label for="waterIntake">Daily Water Intake</label>
+        <input type="text" id="waterIntake" name="waterIntake" placeholder="e.g. 2-3 litres/day">
+
+        <label for="appetiteType">Appetite</label>
+        <select id="appetiteType" name="appetiteType">
+          <option value="">-- Select --</option>
+          <option value="Poor">Poor</option>
+          <option value="Normal">Normal</option>
+          <option value="Excessive">Excessive</option>
+          <option value="Variable">Variable</option>
+        </select>
+
+        <div class="ayush-subgrid">
+          <div>
+            <label for="sleepHours">Sleep Duration (hrs)</label>
+            <input type="number" id="sleepHours" name="sleepHours" min="0" max="24" step="0.5">
+          </div>
+          <div>
+            <label for="sleepQuality">Sleep Quality</label>
+            <select id="sleepQuality" name="sleepQuality">
+              <option value="">-- Select --</option>
+              <option value="Sound">Sound</option>
+              <option value="Disturbed">Disturbed</option>
+              <option value="Insomnia">Insomnia</option>
+              <option value="Excessive">Excessive</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="ayush-subgrid">
+          <div>
+            <label for="dinacharyaAdherence">Dinacharya (Routine) Adherence</label>
+            <select id="dinacharyaAdherence" name="dinacharyaAdherence">
+              <option value="">-- Select --</option>
+              <option value="Regular">Regular</option>
+              <option value="Irregular">Irregular</option>
+            </select>
+          </div>
+          <div>
+            <label for="bowelHabit">Bowel Habit</label>
+            <select id="bowelHabit" name="bowelHabit">
+              <option value="">-- Select --</option>
+              <option value="Regular">Regular</option>
+              <option value="Constipated">Constipated</option>
+              <option value="Loose">Loose</option>
+              <option value="Irregular">Irregular</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="stressLevel">Stress Level</label>
+        <select id="stressLevel" name="stressLevel">
+          <option value="">-- Select --</option>
+          <option value="Low">Low</option>
+          <option value="Moderate">Moderate</option>
+          <option value="High">High</option>
+        </select>
+
+        <label for="viharaNotes">Additional Ahara-Vihara Notes</label>
+        <div class="field-row">
+          <textarea id="viharaNotes" name="viharaNotes" rows="3" placeholder="Occupation-related habits, seasonal regimen, exercise routine, addictions..."></textarea>
+          <button type="button" class="mic-btn" onclick="startVoice('viharaNotes', this)">🎤</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 5: Past Records Upload -->
+    <div class="section" data-section="records">
+      <h2 data-i18n="sectionRecords">4. Past Medical Records</h2>
+      <p style="font-size:14px; color:#6b7280; margin-top:0;">Upload any prior prescriptions, lab reports, or discharge summaries. We'll organize them by date for the doctor.</p>
+
+      <div class="upload-box" onclick="document.getElementById('recordUpload').click()" data-i18n="uploadPrompt">
+        Click to upload photos or PDFs of past records
+      </div>
+      <input type="file" id="recordUpload" accept="image/*,.pdf" multiple style="display:none" onchange="handleFiles(event)">
 
       <div id="fileList"></div>
 
-
-      <label for="recordDate">
-        Approximate date of most recent record
-      </label>
-
-      <input
-        type="date"
-        id="recordDate"
-        name="recordDate"
-      >
-
+      <label for="recordDate" data-i18n="recordDate">Approximate date of most recent record</label>
+      <input type="date" id="recordDate" name="recordDate">
     </div>
 
+    <!-- Section 6: Review -->
+    <div class="section" data-section="review">
+      <h2 data-i18n="sectionReview">5. Review & Submit</h2>
+      <p style="font-size:14px; color:#6b7280;" data-i18n="reviewNote">Please double check your details before submitting. Click a "Back" button if you need to edit a previous section.</p>
 
-    <!-- =====================================
-         SECTION 5: REVIEW / PREVIEW
-    ====================================== -->
+      <!-- Red flag alert banner (review page) -->
+      <div id="redFlagAlertReview" class="red-flag-alert" style="display:none;"></div>
 
-    <div class="section" data-section="4">
-
-      <h2>5. Review & Submit</h2>
-
-      <p
-        style="
-          font-size:14px;
-          color:#6b7280;
-          margin-bottom:15px;
-        "
-      >
-        Please double check your details before submitting.
-        Click Back if you need to edit a previous section.
-      </p>
-
-
-      <!-- =====================================
-           REVIEW ALERT
-      ====================================== -->
-
-      <div id="reviewAlert">
-
-        <div class="alert-title" id="reviewAlertTitle"></div>
-
-        <div class="alert-text" id="reviewAlertText"></div>
-
-      </div>
-
-
-      <div id="reviewSummary"></div>
-
+      <div id="reviewSummary" style="font-size:14px; line-height:1.7;"></div>
     </div>
-
-
-    <!-- =====================================
-         NAVIGATION BUTTONS
-    ====================================== -->
 
     <div class="nav-buttons">
-
-      <button
-        type="button"
-        class="btn-back"
-        id="backBtn"
-        style="visibility:hidden;"
-      >
-        Back
-      </button>
-
-
-      <button
-        type="button"
-        class="btn-next"
-        id="nextBtn"
-      >
-        Next
-      </button>
-
-
-      <button
-        type="submit"
-        class="btn-submit"
-        id="submitBtn"
-        style="display:none;"
-      >
-        Submit
-      </button>
-
+      <button type="button" class="btn-back" id="backBtn" style="visibility:hidden;" data-i18n="back">Back</button>
+      <button type="button" class="btn-next" id="nextBtn" data-i18n="next">Next</button>
+      <button type="submit" class="btn-submit" id="submitBtn" style="display:none;" data-i18n="submit">Submit</button>
     </div>
-
   </form>
 
-
-  <!-- =====================================
-       SUCCESS MESSAGE
-  ====================================== -->
-
   <div id="successMsg">
-
-    <h2>✅ Submitted Successfully</h2>
-
-    <p>
-      The patient report has been recorded.
-    </p>
-
+    <h2 data-i18n="submitted">✅ Submitted Successfully</h2>
+    <p data-i18n="submittedNote">The patient report has been recorded.</p>
   </div>
-
 </div>
 
-
 <script>
-
-  /* ==========================================================
-     CONFIGURATION
-     ========================================================== */
-
-  /*
-     These are the complaints for which the alert system works.
-  */
-
-  const ALERT_COMPLAINTS = [
-    "Chest pain",
-    "Abdominal pain",
-    "Breathing difficulty"
-  ];
-
-
-  /*
-     Severity rules:
-
-     1-5  = No red alert
-     6-7  = Simple red alert
-     8-10 = Very alarming red alert
-  */
-
-  const SIMPLE_ALERT_MIN = 6;
-  const CRITICAL_ALERT_MIN = 8;
-
-
-  /* ==========================================================
-     FOLLOW-UP QUESTIONS
-     ========================================================== */
-
-  const followUpMap = {
-
-    "Chest pain": [
-
-      {
-        id: "fu_onset",
-        label: "When did the pain start?",
-        type: "text",
-        placeholder: "e.g., 2 hours ago"
-      },
-
-      {
-        id: "fu_character",
-        label: "How would you describe the pain?",
-        type: "select",
-        options: [
-          "Sharp",
-          "Dull",
-          "Crushing",
-          "Burning"
-        ]
-      },
-
-      {
-        id: "fu_radiation",
-        label: "Does it spread to your arm, jaw, or back?",
-        type: "select",
-        options: [
-          "Yes",
-          "No"
-        ]
-      },
-
-      {
-        id: "fu_severity",
-        label: "Rate the pain",
-        type: "slider"
-      }
-
-    ],
-
-
-    "Fever": [
-
-      {
-        id: "fu_pattern",
-        label: "Is it continuous or comes and goes?",
-        type: "select",
-        options: [
-          "Continuous",
-          "Intermittent"
-        ]
-      },
-
-      {
-        id: "fu_associated",
-        label: "Any chills, body ache, or rash?",
-        type: "text",
-        placeholder: "Describe if any"
-      }
-
-    ],
-
-
-    "Headache": [
-
-      {
-        id: "fu_location",
-        label: "Where is the pain located?",
-        type: "select",
-        options: [
-          "Front",
-          "Back",
-          "One side",
-          "All over"
-        ]
-      },
-
-      {
-        id: "fu_severity",
-        label: "Rate the pain",
-        type: "slider"
-      }
-
-    ],
-
-
-    "Abdominal pain": [
-
-      {
-        id: "fu_location",
-        label: "Where exactly is the pain?",
-        type: "select",
-        options: [
-          "Upper abdomen",
-          "Lower abdomen",
-          "Right side",
-          "Left side",
-          "All over"
-        ]
-      },
-
-      {
-        id: "fu_severity",
-        label: "Rate the pain",
-        type: "slider"
-      }
-
-    ],
-
-
-    "Breathing difficulty": [
-
-      {
-        id: "fu_trigger",
-        label: "Does it happen at rest or on exertion?",
-        type: "select",
-        options: [
-          "At rest",
-          "On exertion",
-          "Both"
-        ]
-      },
-
-      {
-        id: "fu_severity",
-        label: "Rate the difficulty",
-        type: "slider"
-      }
-
-    ]
-
+  // ---------- Multilingual (EN/HI) ----------
+  let currentLang = 'en';
+  const translations = {
+    en: { title:"Patient Intake Form", subtitle:"Please complete each section and click Next to continue.",
+      sectionDemo:"1. Patient Demographics", fullName:"Full Name", age:"Age", gender:"Gender",
+      selectGender:"Select Gender", male:"Male", female:"Female", other:"Other", bloodGroup:"Blood Group",
+      mobile:"Mobile Number", date:"Date",
+      ayushToggleLabel:"🕉️ Enable Ayush History Mode (Ayurveda OPD)",
+      ayushToggleHint:"Adds an extended Dashvidha Pariksha (10-fold examination) and Ahara-Vihara assessment for Ayurvedic case-taking.",
+      sectionComplaint:"2. Chief Complaint", primaryComplaint:"Primary Complaint", selectProblem:"Select Problem",
+      duration:"Duration of Symptoms", severity:"Severity (1–10)", details:"Additional Details",
+      sectionHistory:"3. Medical History", pastConditions:"Known Past/Existing Conditions",
+      surgicalHistory:"Previous Surgeries", medications:"Current Medications", allergies:"Known Allergies",
+      smoker:"Smoker", alcohol:"Consumes Alcohol", familyHistory:"Family history of chronic illness",
+      sectionAyush:"🕉️ Ayush History — Dashvidha Pariksha",
+      ayushSectionNote:"Ten-fold Ayurvedic clinical examination, plus diet and lifestyle (Ahara-Vihara) assessment.",
+      sectionRecords:"4. Past Medical Records", uploadPrompt:"Click to upload photos or PDFs of past records",
+      recordDate:"Approximate date of most recent record",
+      sectionReview:"5. Review & Submit", reviewNote:'Please double check your details before submitting. Click a "Back" button if you need to edit a previous section.',
+      back:"Back", next:"Next", submit:"Submit", submitted:"✅ Submitted Successfully", submittedNote:"The patient report has been recorded." },
+    hi: { title:"रोगी पंजीकरण फ़ॉर्म", subtitle:"कृपया हर भाग भरें और आगे बढ़ने के लिए Next दबाएं।",
+      sectionDemo:"1. रोगी जानकारी", fullName:"पूरा नाम", age:"आयु", gender:"लिंग",
+      selectGender:"लिंग चुनें", male:"पुरुष", female:"महिला", other:"अन्य", bloodGroup:"ब्लड ग्रुप",
+      mobile:"मोबाइल नंबर", date:"तारीख",
+      ayushToggleLabel:"🕉️ आयुष हिस्ट्री मोड सक्षम करें (आयुर्वेद OPD)",
+      ayushToggleHint:"आयुर्वेदिक केस-टेकिंग के लिए विस्तृत दशविध परीक्षा और आहार-विहार मूल्यांकन जोड़ता है।",
+      sectionComplaint:"2. मुख्य शिकायत", primaryComplaint:"मुख्य समस्या", selectProblem:"समस्या चुनें",
+      duration:"लक्षणों की अवधि", severity:"गंभीरता (1–10)", details:"अतिरिक्त विवरण",
+      sectionHistory:"3. चिकित्सा इतिहास", pastConditions:"पहले से मौजूद बीमारियाँ",
+      surgicalHistory:"पिछली सर्जरी", medications:"वर्तमान दवाइयाँ", allergies:"ज्ञात एलर्जी",
+      smoker:"धूम्रपान करता/करती है", alcohol:"शराब का सेवन", familyHistory:"पारिवारिक बीमारी का इतिहास",
+      sectionAyush:"🕉️ आयुष इतिहास — दशविध परीक्षा",
+      ayushSectionNote:"दस-अंगी आयुर्वेदिक परीक्षा, साथ ही आहार-विहार मूल्यांकन।",
+      sectionRecords:"4. पुराने चिकित्सा रिकॉर्ड", uploadPrompt:"पुराने रिकॉर्ड की फोटो/PDF अपलोड करने के लिए क्लिक करें",
+      recordDate:"नवीनतम रिकॉर्ड की अनुमानित तारीख",
+      sectionReview:"5. समीक्षा करें और जमा करें", reviewNote:'जमा करने से पहले विवरण जांच लें। बदलाव के लिए "Back" दबाएं।',
+      back:"पीछे", next:"आगे", submit:"जमा करें", submitted:"✅ सफलतापूर्वक जमा हुआ", submittedNote:"रोगी रिपोर्ट दर्ज कर ली गई है।" }
   };
 
+  function setLanguage(lang) {
+    currentLang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (translations[lang][key]) el.textContent = translations[lang][key];
+    });
+  }
 
-  /* ==========================================================
-     RENDER FOLLOW-UP QUESTIONS
-     ========================================================== */
+  // ---------- Voice input (Web Speech API) ----------
+  function startVoice(targetId, btnEl) {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) { alert('Voice input is not supported in this browser. Try Chrome.'); return; }
+    const rec = new SR();
+    rec.lang = currentLang === 'hi' ? 'hi-IN' : 'en-IN';
+    rec.interimResults = false;
+    rec.maxAlternatives = 1;
+    rec.onstart = () => btnEl.classList.add('listening');
+    rec.onend = () => btnEl.classList.remove('listening');
+    rec.onerror = (e) => {
+      btnEl.classList.remove('listening');
+      console.warn('Speech recognition error:', e.error);
+      if (e.error === 'no-speech') {
+        alert("Didn't catch that — click the mic and try speaking again, right after it turns red.");
+      } else if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+        alert('Microphone access is blocked for this page. Check the 🔒 icon in the address bar and allow it.');
+      } else if (e.error === 'network') {
+        alert('Voice recognition needs an internet connection (Chrome sends audio to Google\'s servers).');
+      } else if (e.error === 'language-not-supported') {
+        alert('That language isn\'t supported for voice input on this device/browser.');
+      } else {
+        alert('Voice input error: ' + e.error);
+      }
+    };
+    rec.onresult = (e) => {
+      const text = e.results[0][0].transcript;
+      const field = document.getElementById(targetId);
+      field.value = field.value ? field.value + ' ' + text : text;
+    };
+    rec.start();
+  }
+
+  // ---------- Adaptive follow-up questions (SOCRATES-style) ----------
+  const followUpMap = {
+    "Chest pain": [
+      { id: "fu_onset", label: "When did the pain start?", type: "text", placeholder: "e.g., 2 hours ago" },
+      { id: "fu_character", label: "How would you describe the pain?", type: "select", options: ["Sharp", "Dull", "Crushing", "Burning"] },
+      { id: "fu_radiation", label: "Does it spread to your arm, jaw, or back?", type: "select", options: ["Yes", "No"] },
+      { id: "fu_severity", label: "Rate the pain", type: "slider" }
+    ],
+    "Fever": [
+      { id: "fu_pattern", label: "Is it continuous or comes and goes?", type: "select", options: ["Continuous", "Intermittent"] },
+      { id: "fu_associated", label: "Any chills, body ache, or rash?", type: "text", placeholder: "Describe if any" }
+    ],
+    "Headache": [
+      { id: "fu_location", label: "Where is the pain located?", type: "select", options: ["Front", "Back", "One side", "All over"] },
+      { id: "fu_severity", label: "Rate the pain", type: "slider" }
+    ],
+    "Abdominal pain": [
+      { id: "fu_location", label: "Where exactly is the pain?", type: "select", options: ["Upper abdomen", "Lower abdomen", "Right side", "Left side", "All over"] },
+      { id: "fu_severity", label: "Rate the pain", type: "slider" }
+    ],
+    "Breathing difficulty": [
+      { id: "fu_trigger", label: "Does it happen at rest or on exertion?", type: "select", options: ["At rest", "On exertion", "Both"] },
+      { id: "fu_severity", label: "Rate the difficulty", type: "slider" }
+    ]
+  };
+
+  // ---------- Red flag alert logic ----------
+  const redFlagComplaints = ["Chest pain", "Abdominal pain", "Breathing difficulty"];
+
+  function getRedFlagLevel() {
+    const complaint = document.getElementById('commonProblems').value;
+    if (!redFlagComplaints.includes(complaint)) return { level: null, complaint };
+
+    const mainSeverityEl = document.getElementById('severity');
+    const followUpSeverityEl = document.getElementById('fu_severity');
+
+    const values = [];
+    if (mainSeverityEl && mainSeverityEl.value !== '') values.push(Number(mainSeverityEl.value));
+    if (followUpSeverityEl && followUpSeverityEl.value !== '') values.push(Number(followUpSeverityEl.value));
+
+    if (values.length === 0) return { level: null, complaint };
+
+    const highest = Math.max(...values);
+
+    if (highest >= 8 && highest <= 10) return { level: 'critical', complaint, score: highest };
+    if (highest >= 6 && highest <= 7) return { level: 'red', complaint, score: highest };
+    return { level: null, complaint, score: highest };
+  }
+
+  function buildAlertHTML(result) {
+    if (result.level === 'critical') {
+      return `🚨 <strong>VERY ALARMING ALERT</strong> — ${result.complaint} reported at severity ${result.score}/10. This requires immediate medical attention.`;
+    }
+    if (result.level === 'red') {
+      return `⚠️ <strong>RED FLAG ALERT</strong> — ${result.complaint} reported at severity ${result.score}/10. Please flag this case for priority review.`;
+    }
+    return '';
+  }
+
+  function checkRedFlags() {
+    const result = getRedFlagLevel();
+    const banner = document.getElementById('redFlagAlert');
+
+    banner.classList.remove('level-red', 'level-critical');
+    if (result.level) {
+      banner.style.display = 'block';
+      banner.classList.add(result.level === 'critical' ? 'level-critical' : 'level-red');
+      banner.innerHTML = buildAlertHTML(result);
+    } else {
+      banner.style.display = 'none';
+      banner.innerHTML = '';
+    }
+
+    syncReviewRedFlag();
+  }
+
+  function syncReviewRedFlag() {
+    const result = getRedFlagLevel();
+    const reviewBanner = document.getElementById('redFlagAlertReview');
+    if (!reviewBanner) return;
+
+    reviewBanner.classList.remove('level-red', 'level-critical');
+    if (result.level) {
+      reviewBanner.style.display = 'block';
+      reviewBanner.classList.add(result.level === 'critical' ? 'level-critical' : 'level-red');
+      reviewBanner.innerHTML = buildAlertHTML(result);
+    } else {
+      reviewBanner.style.display = 'none';
+      reviewBanner.innerHTML = '';
+    }
+  }
 
   function renderFollowUps() {
-
-    const complaint =
-      document.getElementById("commonProblems").value;
-
-    const section =
-      document.getElementById("followUpSection");
-
-    const fieldsContainer =
-      document.getElementById("followUpFields");
-
-    fieldsContainer.innerHTML = "";
-
+    const complaint = document.getElementById('commonProblems').value;
+    const section = document.getElementById('followUpSection');
+    const fieldsContainer = document.getElementById('followUpFields');
+    fieldsContainer.innerHTML = '';
 
     if (!complaint || !followUpMap[complaint]) {
-
-      section.style.display = "none";
-
-      updateSeverityAlert();
-
+      section.style.display = 'none';
       return;
     }
 
-
     followUpMap[complaint].forEach(q => {
+      const group = document.createElement('div');
 
-      const group =
-        document.createElement("div");
-
-
-      const label =
-        document.createElement("label");
-
-      label.textContent =
-        q.label;
-
-      label.setAttribute(
-        "for",
-        q.id
-      );
-
+      const label = document.createElement('label');
+      label.textContent = q.label;
+      label.setAttribute('for', q.id);
       group.appendChild(label);
 
-
-      /* TEXT */
-
-      if (q.type === "text") {
-
-        const input =
-          document.createElement("input");
-
-        input.type = "text";
+      if (q.type === 'text') {
+        const input = document.createElement('input');
+        input.type = 'text';
         input.id = q.id;
         input.name = q.id;
-
-        input.placeholder =
-          q.placeholder || "";
-
+        input.placeholder = q.placeholder || '';
         group.appendChild(input);
-
-      }
-
-
-      /* SELECT */
-
-      else if (q.type === "select") {
-
-        const select =
-          document.createElement("select");
-
+      } else if (q.type === 'select') {
+        const select = document.createElement('select');
         select.id = q.id;
         select.name = q.id;
-
-
-        const blank =
-          document.createElement("option");
-
-        blank.value = "";
-        blank.textContent = "-- Select --";
-
+        const blank = document.createElement('option');
+        blank.value = '';
+        blank.textContent = '-- Select --';
         select.appendChild(blank);
-
-
         q.options.forEach(opt => {
-
-          const option =
-            document.createElement("option");
-
-          option.value = opt;
-          option.textContent = opt;
-
-          select.appendChild(option);
-
+          const o = document.createElement('option');
+          o.value = opt;
+          o.textContent = opt;
+          select.appendChild(o);
         });
-
-
         group.appendChild(select);
-
-      }
-
-
-      /* SLIDER */
-
-      else if (q.type === "slider") {
-
-        const wrapper =
-          document.createElement("div");
-
-        wrapper.className =
-          "severity-slider";
-
-
-        const range =
-          document.createElement("input");
-
-        range.type = "range";
-
+      } else if (q.type === 'slider') {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'severity-slider';
+        const range = document.createElement('input');
+        range.type = 'range';
         range.min = 1;
         range.max = 10;
         range.value = 5;
-
         range.id = q.id;
         range.name = q.id;
-
-
-        const val =
-          document.createElement("span");
-
-        val.className =
-          "severity-value";
-
-        val.textContent = "5";
-
-
-        range.addEventListener(
-          "input",
-          function() {
-
-            val.textContent =
-              range.value;
-
-            updateSeverityAlert();
-
-          }
-        );
-
-
+        const val = document.createElement('span');
+        val.className = 'severity-value';
+        val.textContent = 5;
+        range.oninput = () => { val.textContent = range.value; checkRedFlags(); };
         wrapper.appendChild(range);
         wrapper.appendChild(val);
-
         group.appendChild(wrapper);
-
       }
-
 
       fieldsContainer.appendChild(group);
-
     });
 
-
-    section.style.display = "block";
-
-
-    /*
-       Update alert immediately after
-       follow-up questions are rendered.
-    */
-
-    updateSeverityAlert();
-
+    section.style.display = 'block';
+    checkRedFlags();
   }
 
-
-  /* ==========================================================
-     GET EFFECTIVE SEVERITY
-     ========================================================== */
-
-  function getEffectiveSeverity() {
-
-    const complaint =
-      document.getElementById("commonProblems").value;
-
-
-    const mainSeverity =
-      parseInt(
-        document.getElementById("severity").value,
-        10
-      ) || 0;
-
-
-    /*
-       Only use complaint-specific slider
-       when it exists.
-    */
-
-    let followUpSeverity = 0;
-
-    if (
-      ALERT_COMPLAINTS.includes(complaint)
-    ) {
-
-      const slider =
-        document.getElementById("fu_severity");
-
-      if (slider) {
-
-        followUpSeverity =
-          parseInt(
-            slider.value,
-            10
-          ) || 0;
-
-      }
-
-    }
-
-
-    /*
-       Use the highest severity.
-
-       Example:
-
-       Main severity = 5
-       Slider severity = 8
-
-       Effective severity = 8
-    */
-
-    return Math.max(
-      mainSeverity,
-      followUpSeverity
-    );
-
-  }
-
-
-  /* ==========================================================
-     ALERT LEVEL
-     ========================================================== */
-
-  function getAlertLevel() {
-
-    const complaint =
-      document.getElementById("commonProblems").value;
-
-    const severity =
-      getEffectiveSeverity();
-
-
-    /*
-       No alert for unrelated complaints.
-    */
-
-    if (
-      !ALERT_COMPLAINTS.includes(complaint)
-    ) {
-
-      return "none";
-
-    }
-
-
-    /*
-       No alert for severity 1-5.
-    */
-
-    if (
-      severity < SIMPLE_ALERT_MIN
-    ) {
-
-      return "none";
-
-    }
-
-
-    /*
-       Critical alert for 8-10.
-    */
-
-    if (
-      severity >= CRITICAL_ALERT_MIN
-    ) {
-
-      return "critical";
-
-    }
-
-
-    /*
-       Simple red alert for 6-7.
-    */
-
-    return "simple";
-
-  }
-
-
-  /* ==========================================================
-     UPDATE COMPLAINT PAGE ALERT
-     ========================================================== */
-
-  function updateSeverityAlert() {
-
-    const alertBox =
-      document.getElementById("severityAlert");
-
-    const alertTitle =
-      document.getElementById("alertTitle");
-
-    const alertText =
-      document.getElementById("alertText");
-
-
-    const complaint =
-      document.getElementById("commonProblems").value;
-
-
-    const severity =
-      getEffectiveSeverity();
-
-
-    const alertLevel =
-      getAlertLevel();
-
-
-    /*
-       Reset classes first.
-    */
-
-    alertBox.className =
-      "severity-alert";
-
-
-    /*
-       Hide alert if there is no alert.
-    */
-
-    if (alertLevel === "none") {
-
-      alertBox.style.display = "none";
-
-      alertTitle.textContent = "";
-      alertText.textContent = "";
-
-      return;
-
-    }
-
-
-    /*
-       SIMPLE RED ALERT
-    */
-
-    if (alertLevel === "simple") {
-
-      alertBox.classList.add(
-        "simple-alert"
-      );
-
-      alertBox.style.display = "block";
-
-
-      alertTitle.textContent =
-        "🔴 RED ALERT";
-
-
-      alertText.textContent =
-        complaint +
-        " reported with severity " +
-        severity +
-        "/10. Please review this complaint carefully.";
-
-    }
-
-
-    /*
-       VERY ALARMING RED ALERT
-    */
-
-    else if (alertLevel === "critical") {
-
-      alertBox.classList.add(
-        "critical-alert"
-      );
-
-      alertBox.style.display = "block";
-
-
-      alertTitle.textContent =
-        "🚨 VERY ALARMING — RED ALERT";
-
-
-      alertText.textContent =
-        complaint +
-        " reported with severity " +
-        severity +
-        "/10. Immediate clinical attention is recommended.";
-
-    }
-
-  }
-
-
-  /* ==========================================================
-     LISTEN FOR MAIN SEVERITY CHANGES
-     ========================================================== */
-
-  document
-    .getElementById("severity")
-    .addEventListener(
-      "input",
-      updateSeverityAlert
-    );
-
-
-  /* ==========================================================
-     PAST RECORD UPLOAD
-     ========================================================== */
-
+  // ---------- Past records upload ----------
   let uploadedFiles = [];
 
-
   function handleFiles(event) {
-
-    const files =
-      Array.from(event.target.files);
-
-
-    files.forEach(
-      file => uploadedFiles.push(file)
-    );
-
-
+    const files = Array.from(event.target.files);
+    files.forEach(file => uploadedFiles.push(file));
     renderFileList();
-
   }
-
 
   function renderFileList() {
-
-    const list =
-      document.getElementById("fileList");
-
-    list.innerHTML = "";
-
-
-    uploadedFiles.forEach(
-      (file, index) => {
-
-        const item =
-          document.createElement("div");
-
-        item.className =
-          "file-item";
-
-
-        const name =
-          document.createElement("span");
-
-        name.textContent =
-          file.name;
-
-
-        const removeBtn =
-          document.createElement("button");
-
-        removeBtn.type =
-          "button";
-
-        removeBtn.textContent =
-          "Remove";
-
-
-        removeBtn.onclick =
-          function() {
-
-            uploadedFiles.splice(
-              index,
-              1
-            );
-
-            renderFileList();
-
-          };
-
-
-        item.appendChild(name);
-        item.appendChild(removeBtn);
-
-        list.appendChild(item);
-
-      }
-    );
-
+    const list = document.getElementById('fileList');
+    list.innerHTML = '';
+    uploadedFiles.forEach((file, index) => {
+      const item = document.createElement('div');
+      item.className = 'file-item';
+      item.innerHTML = `<span>${file.name}</span>`;
+      const removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.textContent = 'Remove';
+      removeBtn.onclick = () => {
+        uploadedFiles.splice(index, 1);
+        renderFileList();
+      };
+      item.appendChild(removeBtn);
+      list.appendChild(item);
+    });
   }
 
+  // ---------- Ayush History Mode ----------
+  let ayushModeEnabled = false;
 
-  /* ==========================================================
-     MULTI-STEP NAVIGATION
-     ========================================================== */
+  function calcBMI() {
+    const h = parseFloat(document.getElementById('pramanaHeight').value);
+    const w = parseFloat(document.getElementById('pramanaWeight').value);
+    const display = document.getElementById('bmiDisplay');
+    if (!h || !w) { display.textContent = ''; return; }
+    const bmi = w / Math.pow(h / 100, 2);
+    let category = '';
+    if (bmi < 18.5) category = 'Underweight';
+    else if (bmi < 25) category = 'Normal';
+    else if (bmi < 30) category = 'Overweight';
+    else category = 'Obese';
+    display.textContent = `BMI: ${bmi.toFixed(1)} (${category})`;
+  }
 
-  const sections =
-    document.querySelectorAll(".section");
+  function suggestVaya() {
+    const ageEl = document.getElementById('age');
+    const vayaEl = document.getElementById('vayaCategory');
+    if (!ageEl || !vayaEl) return;
+    const age = Number(ageEl.value);
+    if (!age) return;
+    if (age <= 16) vayaEl.value = 'Bala (0-16 yrs)';
+    else if (age <= 60) vayaEl.value = 'Madhya (16-60 yrs)';
+    else vayaEl.value = 'Vriddha (60+ yrs)';
+  }
 
-  const totalSteps =
-    sections.length;
+  function toggleAyushMode(enabled) {
+    ayushModeEnabled = enabled;
+    if (enabled) suggestVaya();
+    rebuildSections();
+    current = 0;
+    showSection(current);
+  }
 
+  // ---------- Multi-step navigation (dynamic — accounts for conditional Ayush section) ----------
+  const stepLabelMap = {
+    demo: { en: 'Demographics', hi: 'जानकारी' },
+    complaint: { en: 'Complaint', hi: 'शिकायत' },
+    history: { en: 'History', hi: 'इतिहास' },
+    ayush: { en: 'Ayush', hi: 'आयुष' },
+    records: { en: 'Past Records', hi: 'रिकॉर्ड' },
+    review: { en: 'Review', hi: 'समीक्षा' }
+  };
+
+  let sections = [];
+  let totalSteps = 0;
   let current = 0;
 
+  const progressWrap = document.getElementById('progressWrap');
+  const backBtn = document.getElementById('backBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const submitBtn = document.getElementById('submitBtn');
 
-  const progressWrap =
-    document.getElementById("progressWrap");
+  function rebuildSections() {
+    sections = Array.from(document.querySelectorAll('.section')).filter(s => {
+      return s.dataset.conditional !== 'ayush' || ayushModeEnabled;
+    });
+    totalSteps = sections.length;
 
-
-  const stepLabels = [
-    "Demographics",
-    "Complaint",
-    "History",
-    "Past Records",
-    "Review"
-  ];
-
-
-  stepLabels.forEach(
-    (label, i) => {
-
-      const div =
-        document.createElement("div");
-
-      div.className =
-        "progress-step" +
-        (i === 0 ? " active" : "");
-
-
-      div.innerHTML =
-        `<div class="dot">${i + 1}</div>${label}`;
-
-
+    progressWrap.innerHTML = '';
+    sections.forEach((s, i) => {
+      const key = s.dataset.section;
+      const label = (stepLabelMap[key] && stepLabelMap[key][currentLang]) || key;
+      const div = document.createElement('div');
+      div.className = 'progress-step' + (i === 0 ? ' active' : '');
+      div.innerHTML = `<div class="dot">${i + 1}</div>${label}`;
       div.dataset.index = i;
-
-
       progressWrap.appendChild(div);
-
-    }
-  );
-
-
-  const backBtn =
-    document.getElementById("backBtn");
-
-  const nextBtn =
-    document.getElementById("nextBtn");
-
-  const submitBtn =
-    document.getElementById("submitBtn");
-
-
-  /* ==========================================================
-     UPDATE PROGRESS
-     ========================================================== */
+    });
+  }
 
   function updateProgress() {
-
-    document
-      .querySelectorAll(".progress-step")
-      .forEach(
-        (el, i) => {
-
-          el.classList.remove(
-            "active",
-            "done"
-          );
-
-
-          if (i < current) {
-
-            el.classList.add("done");
-
-          }
-
-          else if (i === current) {
-
-            el.classList.add("active");
-
-          }
-
-        }
-      );
-
+    document.querySelectorAll('.progress-step').forEach((el, i) => {
+      el.classList.remove('active', 'done');
+      if (i < current) el.classList.add('done');
+      else if (i === current) el.classList.add('active');
+    });
   }
-
-
-  /* ==========================================================
-     SHOW SECTION
-     ========================================================== */
 
   function showSection(index) {
-
-    sections.forEach(
-      section => {
-        section.classList.remove(
-          "active"
-        );
-      }
-    );
-
-
-    sections[index].classList.add(
-      "active"
-    );
-
-
-    backBtn.style.visibility =
-      index === 0
-        ? "hidden"
-        : "visible";
-
-
-    nextBtn.style.display =
-      index === totalSteps - 1
-        ? "none"
-        : "inline-block";
-
-
-    submitBtn.style.display =
-      index === totalSteps - 1
-        ? "inline-block"
-        : "none";
-
-
-    /*
-       Build preview whenever
-       user enters Review.
-    */
-
-    if (
-      index === totalSteps - 1
-    ) {
-
-      buildReview();
-
-    }
-
-
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    sections[index].classList.add('active');
+    backBtn.style.visibility = index === 0 ? 'hidden' : 'visible';
+    nextBtn.style.display = index === totalSteps - 1 ? 'none' : 'inline-block';
+    submitBtn.style.display = index === totalSteps - 1 ? 'inline-block' : 'none';
+    if (index === totalSteps - 1) { buildReview(); syncReviewRedFlag(); }
     updateProgress();
-
   }
-
-
-  /* ==========================================================
-     VALIDATE SECTION
-     ========================================================== */
 
   function validateSection(index) {
-
-    const inputs =
-      sections[index]
-        .querySelectorAll(
-          "input, select, textarea"
-        );
-
-
-    for (
-      const input of inputs
-    ) {
-
-      if (
-        input.hasAttribute("required") &&
-        !input.checkValidity()
-      ) {
-
+    const inputs = sections[index].querySelectorAll('input, select, textarea');
+    for (const input of inputs) {
+      if (input.hasAttribute('required') && !input.checkValidity()) {
         input.reportValidity();
-
         return false;
-
       }
-
     }
-
-
     return true;
-
   }
-
-
-  /* ==========================================================
-     BUILD REVIEW / PREVIEW
-     ========================================================== */
 
   function buildReview() {
-
-    const form =
-      document.getElementById(
-        "patientForm"
-      );
-
-
-    const formData =
-      new FormData(form);
-
-
-    let html = "";
-
-
-    /*
-       Display important fields
-       with readable labels.
-    */
-
-    const fieldLabels = {
-
-      patientName:
-        "Patient Name",
-
-      age:
-        "Age",
-
-      gender:
-        "Gender",
-
-      bloodGroup:
-        "Blood Group",
-
-      mobileNumber:
-        "Mobile Number",
-
-      date:
-        "Date",
-
-      commonProblems:
-        "Primary Complaint",
-
-      duration:
-        "Duration",
-
-      severity:
-        "Severity",
-
-      reportDetails:
-        "Additional Details",
-
-      fu_onset:
-        "Pain Onset",
-
-      fu_character:
-        "Pain Character",
-
-      fu_radiation:
-        "Pain Radiation",
-
-      fu_location:
-        "Pain Location",
-
-      fu_trigger:
-        "Breathing Difficulty Trigger",
-
-      fu_severity:
-        "Complaint Severity",
-
-      pastConditions:
-        "Past Conditions",
-
-      surgicalHistory:
-        "Surgical History",
-
-      medications:
-        "Current Medications",
-
-      allergies:
-        "Allergies",
-
-      recordDate:
-        "Most Recent Record Date"
-
-    };
-
-
-    for (
-      const [key, value]
-      of formData.entries()
-    ) {
-
-      /*
-         Ignore empty values.
-      */
-
-      if (!value) {
-        continue;
-      }
-
-
-      /*
-         Ignore checkbox fields
-         here because we handle them separately.
-      */
-
-      if (
-        key === "smoker" ||
-        key === "alcohol" ||
-        key === "familyHistory"
-      ) {
-        continue;
-      }
-
-
-      const label =
-        fieldLabels[key] || key;
-
-
-      html +=
-        `<div class="review-item">
-          <span class="review-label">
-            ${escapeHtml(label)}:
-          </span>
-          ${escapeHtml(value)}
-        </div>`;
-
+    const formData = new FormData(document.getElementById('patientForm'));
+    let html = '';
+    for (const [key, value] of formData.entries()) {
+      if (!value) continue;
+      html += `<strong>${key}:</strong> ${value}<br>`;
     }
-
-
-    /*
-       Add checkbox information.
-    */
-
-    const smoker =
-      document.querySelector(
-        'input[name="smoker"]'
-      ).checked;
-
-    const alcohol =
-      document.querySelector(
-        'input[name="alcohol"]'
-      ).checked;
-
-    const familyHistory =
-      document.querySelector(
-        'input[name="familyHistory"]'
-      ).checked;
-
-
-    if (smoker) {
-
-      html +=
-        `<div class="review-item">
-          <span class="review-label">
-            Smoker:
-          </span>
-          Yes
-        </div>`;
-
+    if (uploadedFiles.length > 0) {
+      html += `<strong>Past records uploaded:</strong> ${uploadedFiles.length} file(s)<br>`;
     }
-
-
-    if (alcohol) {
-
-      html +=
-        `<div class="review-item">
-          <span class="review-label">
-            Consumes Alcohol:
-          </span>
-          Yes
-        </div>`;
-
-    }
-
-
-    if (familyHistory) {
-
-      html +=
-        `<div class="review-item">
-          <span class="review-label">
-            Family History:
-          </span>
-          Yes
-        </div>`;
-
-    }
-
-
-    /*
-       Uploaded files.
-    */
-
-    if (
-      uploadedFiles.length > 0
-    ) {
-
-      html +=
-        `<div class="review-item">
-          <span class="review-label">
-            Past Records:
-          </span>
-          ${uploadedFiles.length} file(s) uploaded
-        </div>`;
-
-    }
-
-
-    document
-      .getElementById(
-        "reviewSummary"
-      )
-      .innerHTML = html;
-
-
-    /*
-       Update the red alert
-       on the Preview page.
-    */
-
-    updateReviewAlert();
-
+    document.getElementById('reviewSummary').innerHTML = html;
   }
 
-
-  /* ==========================================================
-     UPDATE REVIEW / PREVIEW ALERT
-     ========================================================== */
-
-  function updateReviewAlert() {
-
-    const alertBox =
-      document.getElementById(
-        "reviewAlert"
-      );
-
-
-    const alertTitle =
-      document.getElementById(
-        "reviewAlertTitle"
-      );
-
-
-    const alertText =
-      document.getElementById(
-        "reviewAlertText"
-      );
-
-
-    const complaint =
-      document.getElementById(
-        "commonProblems"
-      ).value;
-
-
-    const severity =
-      getEffectiveSeverity();
-
-
-    /*
-       Determine alert level.
-    */
-
-    let alertLevel =
-      "none";
-
-
-    if (
-      ALERT_COMPLAINTS.includes(
-        complaint
-      )
-    ) {
-
-      if (
-        severity >= CRITICAL_ALERT_MIN
-      ) {
-
-        alertLevel =
-          "critical";
-
-      }
-
-      else if (
-        severity >= SIMPLE_ALERT_MIN
-      ) {
-
-        alertLevel =
-          "simple";
-
-      }
-
+  nextBtn.addEventListener('click', () => {
+    if (!validateSection(current)) return;
+    if (current < totalSteps - 1) {
+      current++;
+      showSection(current);
     }
+  });
 
-
-    /*
-       Reset.
-    */
-
-    alertBox.className = "";
-
-    alertBox.style.display =
-      "none";
-
-
-    /*
-       No alert.
-    */
-
-    if (
-      alertLevel === "none"
-    ) {
-
-      return;
-
+  backBtn.addEventListener('click', () => {
+    if (current > 0) {
+      current--;
+      showSection(current);
     }
-
-
-    /*
-       Simple red alert.
-    */
-
-    if (
-      alertLevel === "simple"
-    ) {
-
-      alertBox.classList.add(
-        "simple-alert"
-      );
-
-      alertBox.style.display =
-        "block";
-
-
-      alertTitle.textContent =
-        "🔴 RED ALERT";
-
-
-      alertText.textContent =
-        complaint +
-        " reported with severity " +
-        severity +
-        "/10. Please review this complaint carefully.";
-
-    }
-
-
-    /*
-       Critical alert.
-    */
-
-    else if (
-      alertLevel === "critical"
-    ) {
-
-      alertBox.classList.add(
-        "critical-alert"
-      );
-
-      alertBox.style.display =
-        "block";
-
-
-      alertTitle.textContent =
-        "🚨 VERY ALARMING — RED ALERT";
-
-
-      alertText.textContent =
-        complaint +
-        " reported with severity " +
-        severity +
-        "/10. Immediate clinical attention is recommended.";
-
-    }
-
-  }
-
-
-  /* ==========================================================
-     ESCAPE HTML
-     ========================================================== */
-
-  function escapeHtml(value) {
-
-    return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-
-  }
-
-
-  /* ==========================================================
-     NEXT BUTTON
-     ========================================================== */
-
-  nextBtn.addEventListener(
-    "click",
-    function() {
-
-      /*
-         Validate current section.
-      */
-
-      if (
-        !validateSection(current)
-      ) {
-
-        return;
-
-      }
-
-
-      /*
-         Move forward.
-      */
-
-      if (
-        current < totalSteps - 1
-      ) {
-
-        current++;
-
-        showSection(current);
-
-      }
-
-    }
-  );
-
-
-  /* ==========================================================
-     BACK BUTTON
-     ========================================================== */
-
-  backBtn.addEventListener(
-    "click",
-    function() {
-
-      if (current > 0) {
-
-        current--;
-
-        showSection(current);
-
-      }
-
-    }
-  );
-
-
-  /* ==========================================================
-     SUBMIT
-     ========================================================== */
-
-  document
-    .getElementById("patientForm")
-    .addEventListener(
-      "submit",
-      function(e) {
-
-        e.preventDefault();
-
-
-        /*
-           Get final patient alert information.
-        */
-
-        const complaint =
-          document.getElementById(
-            "commonProblems"
-          ).value;
-
-
-        const severity =
-          getEffectiveSeverity();
-
-
-        let alertLevel =
-          "none";
-
-
-        if (
-          ALERT_COMPLAINTS.includes(
-            complaint
-          )
-        ) {
-
-          if (
-            severity >= CRITICAL_ALERT_MIN
-          ) {
-
-            alertLevel =
-              "critical";
-
-          }
-
-          else if (
-            severity >= SIMPLE_ALERT_MIN
-          ) {
-
-            alertLevel =
-              "simple";
-
-          }
-
-        }
-
-
-        /*
-           Save alert information
-           so another page can read it.
-
-           Example:
-           submission-page.html
-           analytical-report.html
-           preview page
-        */
-
-        const alertData = {
-
-          complaint:
-            complaint,
-
-          severity:
-            severity,
-
-          alertLevel:
-            alertLevel,
-
-          isAlert:
-            alertLevel !== "none",
-
-          timestamp:
-            new Date().toISOString()
-
-        };
-
-
-        localStorage.setItem(
-          "patientAlert",
-          JSON.stringify(alertData)
-        );
-
-
-        /*
-           Save basic patient information
-           for preview/report pages.
-        */
-
-        const patientData = {
-
-          patientName:
-            document.getElementById(
-              "patientName"
-            ).value,
-
-          age:
-            document.getElementById(
-              "age"
-            ).value,
-
-          gender:
-            document.getElementById(
-              "gender"
-            ).value,
-
-          bloodGroup:
-            document.getElementById(
-              "bloodGroup"
-            ).value,
-
-          mobileNumber:
-            document.getElementById(
-              "mobileNumber"
-            ).value,
-
-          complaint:
-            complaint,
-
-          severity:
-            severity,
-
-          alertLevel:
-            alertLevel
-
-        };
-
-
-        localStorage.setItem(
-          "patientData",
-          JSON.stringify(patientData)
-        );
-
-
-        /*
-           Redirect to your existing
-           submission page.
-        */
-
-        window.location.href =
-          "submission-page.html";
-
-      }
-    );
-
-
-  /* ==========================================================
-     INITIALIZE
-     ========================================================== */
-
+  });
+
+  document.getElementById('patientForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Replace this with your actual backend call (fetch to /submit),
+    // then redirect once the save succeeds.
+    window.location.href = 'submission-page.html';
+  });
+
+  rebuildSections();
   showSection(current);
-
 </script>
-
 </body>
 </html>
