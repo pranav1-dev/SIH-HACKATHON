@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — Medikiosk-CaseTaker</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f9fafb;
+    --card-line: #e5e7eb;
+    --accent: #93c5fd;
+    --accent-dark: #2563eb;
+    --accent-darker: #1d4ed8;
+    --muted: #6b7280;
+    --serif: Georgia, 'Times New Roman', serif;
+    --danger: #dc2626;
+  }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #1f2937;
+    background: var(--bg);
+    min-height: 100vh;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  header h1 {
+    font-size: 20px;
+    color: var(--accent-dark);
+  }
+
+  header a.back-link {
+    text-decoration: none;
+    color: #374151;
+    font-size: 14px;
+  }
+
+  main {
+    display: flex;
+    justify-content: center;
+    padding: 56px 20px 80px;
+  }
+
+  .auth-shell {
+    width: 100%;
+    max-width: 440px;
+  }
+
+  .role-switch {
+    display: flex;
+    background: #fff;
+    border: 1px solid var(--card-line);
+    border-radius: 8px;
+    padding: 4px;
+    margin-bottom: 24px;
+  }
+
+  .role-switch button {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .role-switch button.active {
+    background: var(--accent-dark);
+    color: #fff;
+  }
+
+  .auth-card {
+    background: #fff;
+    border: 1px solid var(--card-line);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(40, 40, 40, 0.08);
+    padding: 32px;
+  }
+
+  .auth-card h2 {
+    font-family: var(--serif);
+    font-size: 22px;
+    margin-bottom: 4px;
+    color: #111827;
+  }
+
+  .auth-card p.sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .mode-tabs {
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid var(--card-line);
+    margin-bottom: 20px;
+  }
+
+  .mode-tabs button {
+    background: none;
+    border: none;
+    padding: 0 0 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+  }
+
+  .mode-tabs button.active {
+    color: var(--accent-dark);
+    border-bottom-color: var(--accent-dark);
+  }
+
+  form.auth-form { display: none; }
+  form.auth-form.active { display: block; animation: fadeIn 0.2s ease-in; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    margin-top: 14px;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--accent-dark);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+  }
+
+  .field-error {
+    font-size: 12px;
+    color: var(--danger);
+    margin-top: 4px;
+    display: none;
+  }
+
+  .field-error.show { display: block; }
+
+  .form-error-banner {
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-left: 4px solid var(--danger);
+    color: #991b1b;
+    font-size: 13px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin-top: 16px;
+    display: none;
+  }
+
+  .form-error-banner.show { display: block; }
+
+  .remember-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    font-size: 13px;
+  }
+
+  .remember-row label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .remember-row input { width: auto; }
+
+  .remember-row a {
+    color: var(--accent-dark);
+    text-decoration: none;
+  }
+
+  .submit-btn {
+    width: 100%;
+    margin-top: 22px;
+    padding: 12px 0;
+    background: var(--accent-dark);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+
+  .submit-btn:hover { background: var(--accent-darker); }
+  .submit-btn:disabled { background: #93c5fd; cursor: not-allowed; }
+
+  .helper-note {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 16px;
+  }
+
+  .doctor-note {
+    font-size: 12px;
+    color: #9a3412;
+    background: #fff7ed;
+    border: 1px solid #fdba74;
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Medikiosk-CaseTaker</h1>
+  <a href="patient-form.html" class="back-link">&larr; Back to home</a>
+</header>
+
+<main>
+  <div class="auth-shell">
+
+    <div class="role-switch">
+      <button type="button" id="roleBtnPatient" class="active" onclick="setRole('patient')">Patient</button>
+      <button type="button" id="roleBtnDoctor" onclick="setRole('doctor')">Doctor</button>
+    </div>
+
+    <div class="auth-card">
+
+      <!-- PATIENT: login / register tabs -->
+      <div id="patientPanel">
+        <h2 id="patientHeading">Patient Login</h2>
+        <p class="sub">Sign in to view your records or start a new intake.</p>
+
+        <div class="mode-tabs">
+          <button type="button" id="tabPatientLogin" class="active" onclick="setPatientMode('login')">Login</button>
+          <button type="button" id="tabPatientRegister" onclick="setPatientMode('register')">New Registration</button>
+        </div>
+
+        <!-- Patient Login -->
+        <form class="auth-form active" id="patientLoginForm" novalidate>
+          <label for="pLoginId">Patient ID</label>
+          <input type="text" id="pLoginId" name="identifier" required autocomplete="username">
+          <div class="field-error" id="err_pLoginId">Enter your patient ID.</div>
+
+          <label for="pLoginPassword">Password</label>
+          <input type="password" id="pLoginPassword" name="password" required autocomplete="current-password">
+          <div class="field-error" id="err_pLoginPassword">Enter your password.</div>
+
+          <div class="remember-row">
+            <label><input type="checkbox" name="remember"> Remember me</label>
+            <a href="#" onclick="alert('This is a demo — password reset isn\'t built yet.'); return false;">Forgot password?</a>
+          </div>
+
+          <div class="form-error-banner" id="patientLoginError"></div>
+
+          <button type="submit" class="submit-btn" id="patientLoginSubmit">Log In</button>
+          <p class="helper-note">New here? <a href="#" onclick="setPatientMode('register'); return false;" style="color:var(--accent-dark);">Create an account</a></p>
+        </form>
+
+        <!-- Patient Register -->
+        <form class="auth-form" id="patientRegisterForm" novalidate>
+          <label for="pRegName">Full Name</label>
+          <input type="text" id="pRegName" name="fullName" required autocomplete="name">
+          <div class="field-error" id="err_pRegName">Enter your full name.</div>
+
+          <label for="pRegMobile">Mobile Number</label>
+          <input type="tel" id="pRegMobile" name="mobileNumber" pattern="[0-9]{10}" placeholder="10-digit number" required autocomplete="tel">
+          <div class="field-error" id="err_pRegMobile">Enter a valid 10-digit mobile number.</div>
+
+          <label for="pRegAge">Age</label>
+          <input type="number" id="pRegAge" name="age" min="0" max="120" required>
+          <div class="field-error" id="err_pRegAge">Enter a valid age.</div>
+
+          <label for="pRegGender">Gender</label>
+          <select id="pRegGender" name="gender" required>
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+          <div class="field-error" id="err_pRegGender">Select a gender.</div>
+
+          <label for="pRegPassword">Create Password</label>
+          <input type="password" id="pRegPassword" name="password" minlength="8" required autocomplete="new-password">
+          <div class="field-error" id="err_pRegPassword">Use at least 8 characters.</div>
+
+          <label for="pRegPasswordConfirm">Confirm Password</label>
+          <input type="password" id="pRegPasswordConfirm" name="passwordConfirm" required autocomplete="new-password">
+          <div class="field-error" id="err_pRegPasswordConfirm">Passwords do not match.</div>
+
+          <div class="form-error-banner" id="patientRegisterError"></div>
+
+          <button type="submit" class="submit-btn" id="patientRegisterSubmit">Create Account</button>
+          <p class="helper-note">Already registered? <a href="#" onclick="setPatientMode('login'); return false;" style="color:var(--accent-dark);">Log in instead</a></p>
+        </form>
+      </div>
+
+      <!-- DOCTOR: login only -->
+      <div id="doctorPanel" style="display:none;">
+        <h2>Doctor Login</h2>
+        <p class="sub">Sign in with your clinic-issued credentials.</p>
+
+        <form class="auth-form active" id="doctorLoginForm" novalidate>
+          <label for="dLoginId">Doctor ID </label>
+          <input type="text" id="dLoginId" name="identifier" required autocomplete="username">
+          <div class="field-error" id="err_dLoginId">Enter your doctor ID.</div>
+
+          <label for="dLoginPassword">Password</label>
+          <input type="password" id="dLoginPassword" name="password" required autocomplete="current-password">
+          <div class="field-error" id="err_dLoginPassword">Enter your password.</div>
+
+          <div class="remember-row">
+            <label><input type="checkbox" name="remember"> Remember me</label>
+            <a href="#" onclick="alert('This is a demo — password reset isn\'t built yet.'); return false;">Forgot password?</a>
+          </div>
+
+          <div class="form-error-banner" id="doctorLoginError"></div>
+
+          <button type="submit" class="submit-btn" id="doctorLoginSubmit">Log In</button>
+          <p class="doctor-note">Doctor accounts are provisioned by clinic admin — there is no self-registration.</p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script>
+  /* This is a self-contained frontend demo: any non-empty login/
+     registration values are accepted, and the "session" is just
+     stored in localStorage so doctor-dashboard.html / patient-dashboard.html
+     know which view to show. */
+
+  function setRole(role) {
+    const isPatient = role === 'patient';
+    document.getElementById('roleBtnPatient').classList.toggle('active', isPatient);
+    document.getElementById('roleBtnDoctor').classList.toggle('active', !isPatient);
+    document.getElementById('patientPanel').style.display = isPatient ? 'block' : 'none';
+    document.getElementById('doctorPanel').style.display = isPatient ? 'none' : 'block';
+  }
+
+  function setPatientMode(mode) {
+    const isLogin = mode === 'login';
+    document.getElementById('tabPatientLogin').classList.toggle('active', isLogin);
+    document.getElementById('tabPatientRegister').classList.toggle('active', !isLogin);
+    document.getElementById('patientLoginForm').classList.toggle('active', isLogin);
+    document.getElementById('patientRegisterForm').classList.toggle('active', !isLogin);
+    document.getElementById('patientHeading').textContent = isLogin ? 'Patient Login' : 'Patient Registration';
+  }
+
+  function clearErrors(form) {
+    form.querySelectorAll('.field-error').forEach(el => el.classList.remove('show'));
+    const banner = form.querySelector('.form-error-banner');
+    if (banner) { banner.classList.remove('show'); banner.textContent = ''; }
+  }
+
+  function showFieldError(id) {
+    const el = document.getElementById('err_' + id);
+    if (el) el.classList.add('show');
+  }
+
+  function showBanner(bannerId, message) {
+    const banner = document.getElementById(bannerId);
+    banner.textContent = message;
+    banner.classList.add('show');
+  }
+
+  function setBusy(btn, busy, busyLabel, defaultLabel) {
+    btn.disabled = busy;
+    btn.textContent = busy ? busyLabel : defaultLabel;
+  }
+
+  function storeSessionAndRedirect(role, name, token) {
+    // Placeholder session storage — replace with your real auth/token strategy.
+    localStorage.setItem('mk_session', JSON.stringify({ role, name, token, ts: Date.now() }));
+    // Doctors land on the doctor case dashboard; patients get their own
+    // dedicated intake-history view.
+    window.location.href = role === 'doctor' ? 'dashboard-doctor.html' : 'patient-dashboard.html';
+  }
+
+  // ---------- Patient Login ----------
+  const patientLoginForm = document.getElementById('patientLoginForm');
+  patientLoginForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    clearErrors(patientLoginForm);
+
+    const identifier = document.getElementById('pLoginId').value.trim();
+    const password = document.getElementById('pLoginPassword').value;
+
+    let valid = true;
+    if (!identifier) { showFieldError('pLoginId'); valid = false; }
+    if (!password) { showFieldError('pLoginPassword'); valid = false; }
+    if (!valid) return;
+
+    const btn = document.getElementById('patientLoginSubmit');
+    setBusy(btn, true, 'Logging in...', 'Log In');
+    try {
+      const result = await callPatientLogin({ identifier, password });
+      storeSessionAndRedirect('patient', result.user.name, result.token);
+    } catch (err) {
+      showBanner('patientLoginError', err.message || 'Login failed. Check your details and try again.');
+    } finally {
+      setBusy(btn, false, 'Logging in...', 'Log In');
+    }
+  });
+
+  // ---------- Patient Register ----------
+  const patientRegisterForm = document.getElementById('patientRegisterForm');
+  patientRegisterForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    clearErrors(patientRegisterForm);
+
+    const fullName = document.getElementById('pRegName').value.trim();
+    const mobileNumber = document.getElementById('pRegMobile').value.trim();
+    const age = document.getElementById('pRegAge').value;
+    const gender = document.getElementById('pRegGender').value;
+    const password = document.getElementById('pRegPassword').value;
+    const passwordConfirm = document.getElementById('pRegPasswordConfirm').value;
+
+    let valid = true;
+    if (!fullName) { showFieldError('pRegName'); valid = false; }
+    if (!/^[0-9]{10}$/.test(mobileNumber)) { showFieldError('pRegMobile'); valid = false; }
+    if (!age || age < 0 || age > 120) { showFieldError('pRegAge'); valid = false; }
+    if (!gender) { showFieldError('pRegGender'); valid = false; }
+    if (!password || password.length < 8) { showFieldError('pRegPassword'); valid = false; }
+    if (password !== passwordConfirm) { showFieldError('pRegPasswordConfirm'); valid = false; }
+    if (!valid) return;
+
+    const btn = document.getElementById('patientRegisterSubmit');
+    setBusy(btn, true, 'Creating account...', 'Create Account');
+    try {
+      const result = await callPatientRegister({ fullName, mobileNumber, age, gender, password });
+      storeSessionAndRedirect('patient', result.user.name, result.token);
+    } catch (err) {
+      showBanner('patientRegisterError', err.message || 'Registration failed. Please try again.');
+    } finally {
+      setBusy(btn, false, 'Creating account...', 'Create Account');
+    }
+  });
+
+  // ---------- Doctor Login ----------
+  const doctorLoginForm = document.getElementById('doctorLoginForm');
+  doctorLoginForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    clearErrors(doctorLoginForm);
+
+    const identifier = document.getElementById('dLoginId').value.trim();
+    const password = document.getElementById('dLoginPassword').value;
+
+    let valid = true;
+    if (!identifier) { showFieldError('dLoginId'); valid = false; }
+    if (!password) { showFieldError('dLoginPassword'); valid = false; }
+    if (!valid) return;
+
+    const btn = document.getElementById('doctorLoginSubmit');
+    setBusy(btn, true, 'Logging in...', 'Log In');
+    try {
+      const result = await callDoctorLogin({ identifier, password });
+      storeSessionAndRedirect('doctor', result.user.name, result.token);
+    } catch (err) {
+      showBanner('doctorLoginError', err.message || 'Login failed. Check your details and try again.');
+    } finally {
+      setBusy(btn, false, 'Logging in...', 'Log In');
+    }
+  });
+
+  // ---------- Demo "login" — accepts anything, just simulates a short delay ----------
+  async function callPatientLogin({ identifier, password }) {
+    await new Promise(r => setTimeout(r, 400));
+    return { token: 'demo-token', user: { name: identifier } };
+  }
+
+  async function callPatientRegister({ fullName, mobileNumber, age, gender, password }) {
+    await new Promise(r => setTimeout(r, 400));
+    return { token: 'demo-token', user: { name: fullName } };
+  }
+
+  async function callDoctorLogin({ identifier, password }) {
+    await new Promise(r => setTimeout(r, 400));
+    return { token: 'demo-token', user: { name: identifier } };
+  }
+</script>
+
+</body>
+</html>

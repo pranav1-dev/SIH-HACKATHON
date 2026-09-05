@@ -41,11 +41,31 @@
             color: #2563eb;
         }
 
+        header nav {
+            display: flex;
+            align-items: center;
+        }
+
         header nav a {
             margin-left: 20px;
             text-decoration: none;
             color: #374151;
             font-size: 14px;
+        }
+
+        header nav a.nav-cta {
+            margin-left: 24px;
+            background: #2563eb;
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        header nav a.nav-cta:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
         }
 
         .hero {
@@ -139,6 +159,34 @@
 
         .btn-primary:active {
             transform: translateY(-1px) scale(1.01);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            padding: 11px 27px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            margin-left: 12px;
+            transition: background 0.2s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-3px) scale(1.03);
+        }
+
+        .hero-actions {
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(18px);
+            animation: hero-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.5s;
         }
 
         .features {
@@ -415,6 +463,21 @@
             .steps::before {
                 display: none;
             }
+
+            header {
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 20px;
+            }
+
+            header nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            header nav a {
+                margin: 6px 10px 0;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -428,6 +491,7 @@
             .hero h2,
             .hero p,
             .hero .btn-primary,
+            .hero-actions,
             .feature-card,
             .step,
             .reveal {
@@ -447,10 +511,11 @@
     <header>
         <h1>Medikiosk-CaseTaker</h1>
         <nav>
-            <a href="complete.html">Start Intake</a>
+            
             <a href="analytical-report.html">Analysis</a>
             <a href="How-to-use.html">Guide</a>
             <a href="Our-vision.html">Vision</a>
+            <a href="login-page.html" class="nav-cta">Login / Register</a>
         </nav>
     </header>
 
@@ -458,7 +523,9 @@
         <h2>Patient Intake, Simplified</h2>
         <p>Digital clinical case-taking AI powered software that replaces paperwork with a quick, guided form — built for clinics that need patient
             history fast.</p>
-        <a href="complete.html" class="btn-primary">Start Intake</a>
+        <div class="hero-actions">
+            <a href="login-page.html" class="btn-secondary">Doctor / Patient Login</a>
+        </div>
     </section>
 
     <section class="features">
@@ -514,7 +581,7 @@
     <section class="cta-band reveal">
         <h3>Ready to try it?</h3>
         <p>No login needed for the demo — jump straight into a sample intake.</p>
-        <a href="complete.html" class="btn-primary">Start intake</a>
+        <a href="login-page.html" class="btn-primary">Start intake</a>
     </section>
 
     <footer>
@@ -538,4 +605,4 @@
 
 </body>
 
-</html>>
+</html>

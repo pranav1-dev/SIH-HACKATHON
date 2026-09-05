@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Medikiosk-CaseTaker</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f9fafb;
+    --card-line: #e5e7eb;
+    --accent: #93c5fd;
+    --accent-dark: #2563eb;
+    --accent-darker: #1d4ed8;
+    --muted: #6b7280;
+    --serif: Georgia, 'Times New Roman', serif;
+    --danger: #dc2626;
+    --danger-bg: #fef2f2;
+    --warn: #b45309;
+    --warn-bg: #fff7ed;
+    --ok: #16a34a;
+  }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #1f2937;
+    background: var(--bg);
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 40px;
+    background: #fff;
+    border-bottom: 1px solid var(--card-line);
+  }
+
+  header .brand { display: flex; align-items: center; gap: 10px; }
+  header h1 { font-size: 18px; color: var(--accent-dark); }
+  header .role-badge {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: #eef2ff;
+    color: var(--accent-dark);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  header .user-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+  }
+
+  header .user-area .user-name { font-weight: 600; color: #111827; }
+
+  header button.logout-btn {
+    background: none;
+    border: 1px solid var(--card-line);
+    color: #374151;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  header button.logout-btn:hover { background: #f3f4f6; }
+
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+
+  .page-title { margin-bottom: 24px; }
+  .page-title h2 {
+    font-family: var(--serif);
+    font-size: 26px;
+    color: #111827;
+    margin-bottom: 4px;
+  }
+  .page-title p { font-size: 14px; color: var(--muted); }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .stat-card {
+    background: #fff;
+    border: 1px solid var(--card-line);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .stat-card .stat-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--accent-dark);
+  }
+  .stat-card .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .stat-card.alert .stat-value { color: var(--danger); }
+
+  .section-block {
+    background: #fff;
+    border: 1px solid var(--card-line);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 24px;
+  }
+
+  .section-block h3 {
+    font-size: 16px;
+    color: #111827;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .section-block h3 a.link-btn,
+  .section-block h3 button.link-btn {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-dark);
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  table.data-table th {
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--card-line);
+    padding: 8px 10px;
+  }
+  table.data-table td {
+    padding: 10px;
+    border-bottom: 1px solid #f1f3f5;
+    vertical-align: middle;
+  }
+  table.data-table tr:last-child td { border-bottom: none; }
+  table.data-table tr:hover td { background: #f9fafb; }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 999px;
+  }
+  .badge.normal { background: #ecfdf5; color: var(--ok); }
+  .badge.red { background: var(--danger-bg); color: var(--danger); }
+  .badge.critical { background: var(--danger); color: #fff; }
+  .badge.pending { background: #eef2ff; color: var(--accent-dark); }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .search-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .search-row input, .search-row select {
+    padding: 9px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
+  }
+  .search-row input { flex: 1; }
+
+  .view-btn {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent-dark);
+    background: #eef2ff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .view-btn:hover { background: #e0e7ff; }
+
+  .loading-note {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 12px 0;
+  }
+
+  @media (max-width: 700px) {
+    header { padding: 14px 18px; }
+    header .user-area .user-name { display: none; }
+    main { padding: 24px 16px 60px; }
+    table.data-table { font-size: 13px; }
+    table.data-table th:nth-child(3),
+    table.data-table td:nth-child(3) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <h1>Medikiosk-CaseTaker</h1>
+    <span class="role-badge" id="roleBadge">Doctor</span>
+  </div>
+  <div class="user-area">
+    <span class="user-name" id="userNameLabel">—</span>
+    <a href="login-page.html" onclick="logout(); return false;">Log Out</a>
+  </div>
+</header>
+
+<main id="mainContent">
+  <div class="loading-note">Loading dashboard...</div>
+</main>
+
+<script>
+  /* Self-contained frontend demo: reads the session login-page.html wrote
+     to localStorage ("mk_session": { role, name, token }).
+
+     This page is the doctor's case dashboard. Patients are routed to
+     their own dedicated patient-dashboard.html instead — the two roles
+     no longer share a view (or a localStorage schema) here. */
+
+  const session = JSON.parse(localStorage.getItem('mk_session') || 'null');
+
+  if (!session || !session.role) {
+    window.location.href = 'login-page.html';
+  } else if (session.role !== 'doctor') {
+    window.location.href = 'patient-dashboard.html';
+  } else {
+    document.getElementById('userNameLabel').textContent = session.name || 'Doctor';
+    renderDoctorDashboard();
+  }
+
+  function logout() {
+    localStorage.removeItem('mk_session');
+    window.location.href = 'login-page.html';
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str == null ? '' : String(str);
+    return div.innerHTML;
+  }
+
+  // ---------------- DOCTOR DASHBOARD ----------------
+
+  let allCases = [];
+
+  async function fetchDoctorDashboardData() {
+    await new Promise(r => setTimeout(r, 300));
+    return {
+      stats: { patientsToday: 9, redFlags: 2, pendingReview: 4 },
+      cases: [
+        { id: 'P-1042', patient: 'Ramesh Gupta', age: 58, complaint: 'Chest pain', severity: 9, time: '10:05 AM', flag: 'critical' },
+        { id: 'P-1043', patient: 'Sunita Verma', age: 34, complaint: 'Fever', severity: 4, time: '10:20 AM', flag: 'normal' },
+        { id: 'P-1044', patient: 'Arjun Nair', age: 45, complaint: 'Breathing difficulty', severity: 7, time: '10:35 AM', flag: 'red' },
+        { id: 'P-1045', patient: 'Kavita Rao', age: 29, complaint: 'Headache', severity: 3, time: '10:50 AM', flag: 'normal' },
+        { id: 'P-1046', patient: 'Mohammed Farhan', age: 61, complaint: 'Abdominal pain', severity: 6, time: '11:05 AM', flag: 'red' },
+      ]
+    };
+  }
+
+  function flagBadge(flag) {
+    if (flag === 'critical') return '<span class="badge critical">Critical</span>';
+    if (flag === 'red') return '<span class="badge red">Red Flag</span>';
+    return '<span class="badge normal">Normal</span>';
+  }
+
+  async function renderDoctorDashboard() {
+    const main = document.getElementById('mainContent');
+    main.innerHTML = '<div class="loading-note">Loading today\'s cases...</div>';
+
+    const data = await fetchDoctorDashboardData();
+    allCases = data.cases;
+
+    main.innerHTML = `
+      <div class="page-title">
+        <h2>Welcome back${session.name ? ', ' + escapeHtml(session.name) : ''}</h2>
+        <p>Here's today's patient queue.</p>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-value">${data.stats.patientsToday}</div>
+          <div class="stat-label">Patients today</div>
+        </div>
+        <div class="stat-card alert">
+          <div class="stat-value">${data.stats.redFlags}</div>
+          <div class="stat-label">Red flag cases</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${data.stats.pendingReview}</div>
+          <div class="stat-label">Pending review</div>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <h3>Patient queue</h3>
+        <div class="search-row">
+          <input type="text" id="caseSearch" placeholder="Search by patient name or ID..." oninput="filterCases()">
+          <select id="flagFilter" onchange="filterCases()">
+            <option value="">All cases</option>
+            <option value="critical">Critical only</option>
+            <option value="red">Red flag only</option>
+            <option value="normal">Normal only</option>
+          </select>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr><th>ID</th><th>Patient</th><th>Age</th><th>Complaint</th><th>Time</th><th>Status</th><th></th></tr>
+          </thead>
+          <tbody id="caseTableBody"></tbody>
+        </table>
+        <div class="empty-state" id="caseEmptyState" style="display:none;">No cases match your search.</div>
+      </div>
+    `;
+
+    renderCaseRows(allCases);
+  }
+
+  function renderCaseRows(cases) {
+    const tbody = document.getElementById('caseTableBody');
+    const empty = document.getElementById('caseEmptyState');
+    if (!cases.length) {
+      tbody.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+    tbody.innerHTML = cases.map(c => `
+      <tr>
+        <td>${escapeHtml(c.id)}</td>
+        <td>${escapeHtml(c.patient)}</td>
+        <td>${escapeHtml(c.age)}</td>
+        <td>${escapeHtml(c.complaint)}</td>
+        <td>${escapeHtml(c.time)}</td>
+        <td>${flagBadge(c.flag)}</td>
+        <td><button class="view-btn" onclick="viewCase('${escapeHtml(c.id)}')">View</button></td>
+      </tr>
+    `).join('');
+  }
+
+  function filterCases() {
+    const q = document.getElementById('caseSearch').value.trim().toLowerCase();
+    const flag = document.getElementById('flagFilter').value;
+    const filtered = allCases.filter(c => {
+      const matchesQ = !q || c.patient.toLowerCase().includes(q) || c.id.toLowerCase().includes(q);
+      const matchesFlag = !flag || c.flag === flag;
+      return matchesQ && matchesFlag;
+    });
+    renderCaseRows(filtered);
+  }
+
+  function viewCase(id) {
+    // Replace with real navigation, e.g. window.location.href = `case-detail.html?id=${id}`;
+    alert('This is a demo — case detail view for ' + id + ' isn\'t built yet.');
+  }
+</script>
+
+</body>
+</html>
